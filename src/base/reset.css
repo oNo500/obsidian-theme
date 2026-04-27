@@ -34,11 +34,23 @@ body {
   transition: background-color 120ms ease;
 }
 
-/* 外链图标：删掉 Obsidian 默认 ↗ SVG（背景贴图 + padding-right）。
-   外链与内链通过颜色 / hover 行为已能区分，不需要额外图标 */
+/*
+  外链 vs wikilink 视觉区分（不可没有——点击行为不同）：
+  - 删 Obsidian 默认 ↗ SVG 背景贴图，丑且占位重
+  - 文字色用 ctp sky（蓝调，全球通用「网页链接」语义）；wikilink 维持 mauve 主色
+  - 加极弱化 unicode 角标 ↗，几乎隐形但仔细看能确认
+*/
 .external-link {
   background-image: none;
   padding-right: 0;
+  color: var(--ctp-sky);
+}
+.external-link::after {
+  content: "↗";
+  font-size: 0.7em;
+  color: var(--ctp-overlay0);
+  margin-left: 0.15em;
+  vertical-align: super;
 }
 
 /* 全局焦点环：用户主色 + 微微 outline，比 Obsidian 默认更明显
