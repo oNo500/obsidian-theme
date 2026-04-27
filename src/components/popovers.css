@@ -1,0 +1,49 @@
+/*
+  Popover / Modal / Menu 通用浮层视觉：
+  - 背景 ctp-crust（比 base 深一档，让浮层从主背景中浮出）
+  - 柔和阴影代替 border，符合「不要描边、必要用阴影」偏好
+  - 圆角 8px，跟 code/callout 6px 拉开（浮层是更高优先级元素）
+*/
+
+/* hover popup：hover wikilink 时弹出小预览卡片 */
+.hover-popover,
+.popover {
+  background: var(--ctp-crust);
+  border: none;
+  border-radius: 8px;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.35),
+    0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* modal 弹窗：command palette / quick switcher / settings */
+.modal,
+.modal-bg + .modal-container .modal {
+  background: var(--ctp-crust);
+  border: none;
+  border-radius: 8px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* modal 背景遮罩：暗化主界面凸显 modal */
+.modal-bg {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+/* command palette / quick switcher 选中项 */
+.suggestion-item.is-selected,
+.menu-item.is-selected,
+.menu-item:hover {
+  background: var(--ctp-surface0);
+  color: var(--ctp-text);
+}
+
+/* 输入框：modal 顶部搜索框 */
+.prompt-input {
+  background: var(--ctp-base);
+  border: none;
+  border-radius: 6px;
+}

@@ -11,4 +11,5 @@
 @import "./components/code.css";
 @import "./components/callouts.css";
 @import "./components/tags.css";
+@import "./components/popovers.css";
 @import "./layouts/navigation.css";
