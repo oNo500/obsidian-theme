@@ -21,6 +21,7 @@
 @import "./components/properties.css";
 @import "./components/embed.css";
 @import "./components/popovers.css";
+@import "./components/prompt.css";
 
 @import "./layouts/navigation.css";
 @import "./layouts/file-icons.css";
