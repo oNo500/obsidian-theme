@@ -1,0 +1,27 @@
+body {
+  /* 文件树：激活/hover 用 ctp surface 半透明，比默认半透明白更协调 */
+  --nav-item-background-active: oklch(from var(--user-accent) l c h / 0.12);
+  --nav-item-background-hover: var(--ctp-surface0);
+  --nav-item-color-active: var(--user-accent);
+  --nav-item-weight-active: 600;
+
+  /* 文件树缩进引导线：弱化色 */
+  --nav-indentation-guide-color: var(--ctp-surface0);
+  --nav-indentation-guide-width: 1px;
+
+  /* Tab：激活 tab 文字最强（默认是弱化色，反直觉） */
+  --tab-text-color-focused-active: var(--ctp-text);
+  --tab-text-color-active: var(--ctp-subtext1);
+  --tab-text-color: var(--ctp-overlay1);
+  --tab-radius: 6px;
+}
+
+/* 激活的文件加左侧色条，一眼可见 */
+.nav-file-title.is-active {
+  box-shadow: inset 2px 0 0 var(--user-accent);
+}
+
+/* 激活 tab 顶部 2px mauve 色条 + 文字加重，强化 active 状态 */
+.workspace-tab-header.is-active.mod-active {
+  box-shadow: inset 0 2px 0 var(--user-accent);
+}
