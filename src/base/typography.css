@@ -4,6 +4,10 @@
 */
 
 body {
+  /* macOS 字体反锯齿：从 subpixel 切到 grayscale，字体看着更锐不发虚 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
   /* 正文 / 阅读视图 */
   --font-text-theme:
     "Inter Variable", "Inter",
