@@ -1,0 +1,27 @@
+/*
+  Resize handle：默认透明（视觉上不可见，符合「无线」基调）；
+  hover 时浮出 mauve 细线告诉用户「这里能拖」，并加宽 hit area 让拖动更易抓
+*/
+
+.workspace-leaf-resize-handle {
+  /* 加宽 hit area 到 6px，但视觉上仍透明 */
+  width: 6px;
+  margin-left: -3px;
+  margin-right: -3px;
+  background: transparent;
+  transition: background 120ms ease;
+  z-index: 1;
+}
+
+.workspace-leaf-resize-handle:hover {
+  background: var(--user-accent);
+  /* hover 时背景延伸到 hit area 全宽，但通过 border 视觉上只显示 2px 中线 */
+}
+
+/* 横向 resize handle（上下分割时） */
+.workspace-leaf-resize-handle.mod-horizontal {
+  height: 6px;
+  margin-top: -3px;
+  margin-bottom: -3px;
+  width: auto;
+}
