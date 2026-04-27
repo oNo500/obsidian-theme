@@ -47,3 +47,32 @@ body {
 .markdown-rendered > h2:first-child {
   margin-top: 0.5em;
 }
+
+/*
+  标题前 # 计数前缀：默认隐藏（opacity 0），hover 时浮出
+  让正文阅读零干扰，但 hover 能识别层级深度
+*/
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
+  position: relative;
+}
+
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6)::before {
+  position: absolute;
+  right: 100%;
+  margin-right: 0.4em;
+  color: var(--ctp-overlay0);
+  font-weight: 400;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6):hover::before {
+  opacity: 1;
+}
+
+.markdown-rendered h1::before { content: "#"; }
+.markdown-rendered h2::before { content: "##"; }
+.markdown-rendered h3::before { content: "###"; }
+.markdown-rendered h4::before { content: "####"; }
+.markdown-rendered h5::before { content: "#####"; }
+.markdown-rendered h6::before { content: "######"; }

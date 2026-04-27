@@ -5,9 +5,9 @@ body {
   --nav-item-color-active: var(--user-accent);
   --nav-item-weight-active: 600;
 
-  /* 文件树缩进引导线：弱化色 */
-  --nav-indentation-guide-color: var(--ctp-surface0);
-  --nav-indentation-guide-width: 1px;
+  /* 文件树缩进引导线：彻底去掉，靠缩进本身表达层级 */
+  --nav-indentation-guide-color: transparent;
+  --nav-indentation-guide-width: 0;
 
   /* Tab：激活 tab 文字最强（默认是弱化色，反直觉） */
   --tab-text-color-focused-active: var(--ctp-text);
