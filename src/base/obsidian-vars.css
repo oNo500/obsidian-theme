@@ -21,3 +21,14 @@ body {
   /* on-accent 背景上的文字色（Obsidian 不会自己派生这个） */
   --text-on-accent: var(--ctp-base);
 }
+
+/*
+  按钮 / select / input 走的标准变量 --interactive-normal / --interactive-hover。
+  Obsidian 在 .theme-dark { ... } 里硬编码 #363636 / #3f3f3f，specificity (0,1,0) 比 body 高，
+  所以这里也用 .theme-dark / .theme-light 选择器同 specificity，后加载赢，无需 !important。
+*/
+.theme-dark,
+.theme-light {
+  --interactive-normal: var(--ctp-surface0);
+  --interactive-hover: var(--ctp-surface1);
+}
