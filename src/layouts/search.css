@@ -1,0 +1,59 @@
+/*
+  搜索面板：命中词用 accent 高亮，文件行 hover 用 surface0 浅底，
+  命中数 badge 用 surface1 胶囊，去掉默认 border 噪音
+*/
+
+/* 命中词高亮：accent 色文字 + 同色 12% 浅底 */
+.search-result-file-matched-text {
+  color: var(--user-accent);
+  background: color-mix(in oklab, var(--user-accent) 14%, transparent);
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+/* 文件标题行 hover：整行浅高亮 */
+.search-result-file-title:hover {
+  background: var(--ctp-surface0);
+  border-radius: 6px;
+}
+
+/* 命中数 badge：胶囊 + surface1 */
+.search-result .tree-item-flair {
+  background: var(--ctp-surface1);
+  color: var(--ctp-subtext0);
+  border-radius: 999px;
+  padding: 1px 7px;
+  font-size: 0.75em;
+  font-weight: 500;
+}
+
+/* 匹配片段：去掉默认 border，用左侧引导线 */
+.search-result-file-matches {
+  border-left: 2px solid var(--ctp-surface0);
+  margin-left: 8px;
+  padding-left: 10px;
+}
+
+.search-result-file-match {
+  border: none;
+  padding: 4px 6px;
+  border-radius: 4px;
+  color: var(--ctp-subtext0);
+}
+
+.search-result-file-match:hover {
+  background: var(--ctp-surface0);
+  color: var(--ctp-text);
+}
+
+/* hover 时浮出的"显示更多上下文"按钮：弱化 */
+.search-result-hover-button {
+  background: var(--ctp-surface1);
+  color: var(--ctp-subtext0);
+  border: none;
+}
+
+.search-result-hover-button:hover {
+  background: var(--user-accent);
+  color: var(--ctp-base);
+}
