@@ -5,9 +5,9 @@ body {
   --nav-item-color-active: var(--user-accent);
   --nav-item-weight-active: 600;
 
-  /* 文件树缩进引导线：彻底去掉，靠缩进本身表达层级 */
-  --nav-indentation-guide-color: transparent;
-  --nav-indentation-guide-width: 0;
+  /* 文件树缩进引导线：弱化色 */
+  --nav-indentation-guide-color: var(--ctp-surface0);
+  --nav-indentation-guide-width: 1px;
 
   /* Tab：激活 tab 文字最强（默认是弱化色，反直觉） */
   --tab-text-color-focused-active: var(--ctp-text);
@@ -16,31 +16,17 @@ body {
   --tab-radius: 6px;
 }
 
-/* 文件夹标题字重稍粗于文件名，让层级一眼可辨 */
-.nav-folder-title {
-  font-weight: 500;
-  color: var(--ctp-subtext1);
-}
-
-/* 文件 / 文件夹名超长截断省略号；hover 时撑开本行显示全名 */
-.nav-file-title-content,
-.nav-folder-title-content {
+/* Outline 大纲（右侧 TOC）：长项截断省略号，hover 撑开；选中项文字变 accent */
+.workspace-leaf-content[data-type="outline"] .tree-item-inner {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 0;
 }
 
-.nav-file-title:hover .nav-file-title-content,
-.nav-folder-title:hover .nav-folder-title-content {
+.workspace-leaf-content[data-type="outline"] .tree-item-self:hover .tree-item-inner {
   white-space: normal;
   overflow: visible;
-}
-
-/* Outline 大纲：长项换行用 hanging indent，选中项文字色跟着变 accent */
-.workspace-leaf-content[data-type="outline"] .tree-item-inner {
-  text-indent: -1em;
-  padding-left: 1em;
 }
 
 .workspace-leaf-content[data-type="outline"] .tree-item-self.is-active,
