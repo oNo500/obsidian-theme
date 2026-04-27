@@ -24,9 +24,12 @@ body {
   min-width: 0;
 }
 
+/* TOC 选中态：去掉背景，仅文字 accent + 加粗，避免整行紫底太重 */
 .workspace-leaf-content[data-type="outline"] .tree-item-self.is-active,
 .workspace-leaf-content[data-type="outline"] .tree-item-self.is-selected {
+  background: transparent;
   color: var(--user-accent);
+  font-weight: 600;
 }
 
 /*
