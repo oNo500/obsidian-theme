@@ -132,13 +132,13 @@ const veryLongVariableName = someFunctionCall(argument1, argument2, argument3, {
 
 正文里穿插 `process.argv[2]`、`getComputedStyle()`、`document.body.classList.contains('theme-dark')`、`@catppuccin/palette` 等行内代码，应该有浅背景 + 内边距，不贴着正文文字。
 
-文件路径形如 `src/components/code.css` 或 `~/.obsidian/themes/obsidian-theme/manifest.json` 也走行内 code。
+文件路径形如 `src/components/code.css` 或 `~/.obsidian/themes/quietpaper/manifest.json` 也走行内 code。
 
 ## JSON
 
 ```json
 {
-  "name": "obsidian-theme",
+  "name": "quietpaper",
   "version": "0.0.1",
   "minAppVersion": "1.9.0",
   "scripts": {

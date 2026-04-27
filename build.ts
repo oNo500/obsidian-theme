@@ -5,8 +5,9 @@ import { writeFileSync, mkdirSync, copyFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 const ENTRY = "src/theme.css";
-const OUT = "theme.css";
-const MANIFEST = "manifest.json";
+const OUT_DIR = "theme";
+const OUT = `${OUT_DIR}/theme.css`;
+const MANIFEST = `${OUT_DIR}/manifest.json`;
 const TOKENS_OUT = "src/tokens/generated.css";
 
 // 要同步的目标 vault 列表（每个路径都会装一份独立 theme.css 副本）
@@ -66,7 +67,7 @@ ${renderFlavor(LIGHT_FLAVOR)}
   log(`tokens → ${TOKENS_OUT} (dark: ${DARK_FLAVOR})`);
 }
 
-function bundleCSS(opts: { minify: boolean }) {
+function bundleCSS(opts: { minify: boolean; watch: boolean }) {
   const start = performance.now();
   try {
     const { code } = bundle({
@@ -75,17 +76,21 @@ function bundleCSS(opts: { minify: boolean }) {
       sourceMap: !opts.minify,
       errorRecovery: false,
     });
+    mkdirSync(OUT_DIR, { recursive: true });
     writeFileSync(OUT, code);
     const ms = (performance.now() - start).toFixed(1);
     log(`bundle → ${OUT} (${code.length}B, ${ms}ms)`);
   } catch (e) {
     error("bundle failed", (e as Error).message);
+    // watch 模式保留运行让用户改完救回来；一次性 build/deploy 必须中断，
+    // 否则 sync 会用上次成功的 theme.css 静默部署，跟代码不一致
+    if (!opts.watch) process.exit(1);
   }
 }
 
 function build() {
   tokens();
-  bundleCSS({ minify: true });
+  bundleCSS({ minify: true, watch: false });
 }
 
 function sync() {
@@ -94,17 +99,17 @@ function sync() {
       error("sync skip", `vault not found: ${vault}`);
       continue;
     }
-    const dest = join(vault, ".obsidian", "themes", "obsidian-theme");
+    const dest = join(vault, ".obsidian", "themes", "quietpaper");
     mkdirSync(dest, { recursive: true });
-    copyFileSync(OUT, join(dest, OUT));
-    copyFileSync(MANIFEST, join(dest, MANIFEST));
+    copyFileSync(OUT, join(dest, "theme.css"));
+    copyFileSync(MANIFEST, join(dest, "manifest.json"));
     log(`sync → ${dest}`);
   }
 }
 
 function dev() {
   tokens();
-  bundleCSS({ minify: false });
+  bundleCSS({ minify: false, watch: true });
   log("watching src/ + build.ts ...");
   const watcher = watch(["src", "build.ts"], {
     ignoreInitial: true,
@@ -113,7 +118,7 @@ function dev() {
   });
   watcher.on("all", (_event, path) => {
     if (path.endsWith(".ts")) tokens();
-    bundleCSS({ minify: false });
+    bundleCSS({ minify: false, watch: true });
   });
 }
 

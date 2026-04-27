@@ -6,4 +6,4 @@
 getComputedStyle(document.body).getPropertyValue('--theme-loaded-marker')
 ```
 
-应输出 `"obsidian-theme v0.0.1"`。
+应输出 `"quietpaper v0.0.1"`。

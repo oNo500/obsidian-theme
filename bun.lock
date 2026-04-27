@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "obsidian-theme",
+      "name": "quietpaper",
       "devDependencies": {
         "@catppuccin/palette": "^1.8.0",
         "@types/bun": "^1.3.13",
