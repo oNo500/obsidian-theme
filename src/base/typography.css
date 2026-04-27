@@ -8,18 +8,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* 正文 / 阅读视图 */
-  --font-text-theme:
-    "Inter Variable", "Inter",
-    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC";
+  /* 正文 + UI：不覆盖 --font-text-theme / --font-interface-theme，
+     Obsidian 默认 fallback 链（ui-sans-serif → -apple-system → system-ui → Segoe UI → ...）
+     在 macOS 用 SF Pro + PingFang，Windows 用 Segoe UI + Microsoft YaHei */
 
-  /* UI（侧边栏、菜单、设置面板等） */
-  --font-interface-theme:
-    "Inter Variable", "Inter",
-    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC";
-
-  /* 等宽（code block、行内 code）：西文走程序员字体，中文回退正文 sans（中文不强求等宽） */
-  --font-monospace-theme:
-    "JetBrains Mono", "Fira Code", "SF Mono",
-    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei";
+  /* 等宽（code block、行内 code）：JetBrains Mono 西文 + 系统 CJK 回退 */
+  --font-monospace-theme: "JetBrains Mono";
 }
