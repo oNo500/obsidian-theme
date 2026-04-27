@@ -10,7 +10,7 @@ const TOKENS_OUT = "src/tokens/generated.css";
 
 // 暗色档 flavor 选择：mocha（默认深紫黑）/ macchiato（次深）/ frappe（中浅）
 // 改这里 → bun run tokens 重生成 generated.css
-const DARK_FLAVOR = "macchiato" as const;
+const DARK_FLAVOR = "mocha" as const;
 const LIGHT_FLAVOR = "latte" as const;
 
 type FlavorName = "mocha" | "macchiato" | "frappe" | "latte";

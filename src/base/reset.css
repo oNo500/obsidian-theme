@@ -94,9 +94,30 @@ body {
   background-image: none;
   padding-right: 0;
   text-decoration: underline;
-  text-decoration-color: var(--user-accent);
+  text-decoration-color: var(--ctp-blue);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
+}
+
+/*
+  链接颜色固定为 blue —— 独立于 --user-accent。
+  跟 catppuccin.com 官网做法一致：accent 是 accent，链接永远 blue。
+  这样切 accent 时链接不会跟着变弱，"是链接"的语义信号保持稳定。
+*/
+.markdown-rendered a,
+.markdown-source-view a,
+.metadata-property-value a,
+.markdown-source-view .cm-link,
+.markdown-source-view .cm-url {
+  color: var(--ctp-blue);
+}
+
+.markdown-rendered .internal-link,
+.markdown-source-view .internal-link,
+.metadata-property-value .internal-link,
+.markdown-source-view .cm-hmd-internal-link,
+.markdown-source-view .cm-link-alias {
+  color: var(--ctp-blue);
 }
 
 /* 全局焦点环：用户主色 + 微微 outline，比 Obsidian 默认更明显
