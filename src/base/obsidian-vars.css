@@ -9,10 +9,14 @@ body {
   --text-muted: var(--ctp-subtext0);
   --text-faint: var(--ctp-overlay0);
 
-  /* 主交互色：覆盖 Obsidian 内部 --accent-h/s/l，让其自带的派生链路自然产出 mauve 主色 */
-  --accent-h: var(--user-accent-h);
-  --accent-s: var(--user-accent-s);
-  --accent-l: var(--user-accent-l);
+  /*
+    主交互色：覆盖 Obsidian 内部 --accent-h/s/l，让派生链路产出 ctp accent。
+    必须 !important —— Obsidian 设置里的 accent picker 写 inline style 在 body 上，
+    inline 优先级 > 普通选择器规则，只有 !important 能赢。
+  */
+  --accent-h: var(--user-accent-h) !important;
+  --accent-s: var(--user-accent-s) !important;
+  --accent-l: var(--user-accent-l) !important;
 
   /* on-accent 背景上的文字色（Obsidian 不会自己派生这个） */
   --text-on-accent: var(--ctp-base);
