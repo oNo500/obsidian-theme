@@ -50,21 +50,15 @@ body {
 
 /*
   正文 H1-H6 后置 lucide heading-N 图标：
-  绝对定位浮在标题文字右侧，默认 opacity 0 不占布局，hover 时才显形
+  inline-block 跟在文字尾巴，默认 width 0 + opacity 0 不占布局，hover 才展开
 */
-.markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
-  position: relative;
-}
-
 .markdown-rendered :is(h1, h2, h3, h4, h5, h6)::after {
   content: "";
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  margin-left: 0.5em;
-  width: 0.7em;
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
   height: 0.7em;
+  margin-left: 0;
   background-color: var(--ctp-overlay0);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
@@ -73,12 +67,14 @@ body {
   mask-repeat: no-repeat;
   mask-position: center;
   opacity: 0;
-  transition: opacity 160ms ease;
+  transition: opacity 160ms ease, width 160ms ease, margin-left 160ms ease;
   pointer-events: none;
 }
 
 .markdown-rendered :is(h1, h2, h3, h4, h5, h6):hover::after {
   opacity: 1;
+  width: 0.7em;
+  margin-left: 0.5em;
 }
 
 .markdown-rendered h1::after {
