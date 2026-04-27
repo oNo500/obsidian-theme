@@ -1,0 +1,60 @@
+/*
+  Callout 配色：Obsidian --callout-{type} 期望 "r, g, b" triplet 格式，
+  内部用 rgba(var(--callout-{type}), alpha) 派生半透明背景与边框。
+*/
+
+body {
+  --callout-radius: 6px;
+
+  /* note 系（蓝色，中性信息） */
+  --callout-note: var(--ctp-blue-rgb);
+  --callout-info: var(--ctp-sky-rgb);
+  --callout-todo: var(--ctp-blue-rgb);
+
+  /* tip 系（青绿，正向技巧） */
+  --callout-tip: var(--ctp-teal-rgb);
+  --callout-hint: var(--ctp-teal-rgb);
+
+  /* success 系（绿色，成功状态） */
+  --callout-success: var(--ctp-green-rgb);
+  --callout-check: var(--ctp-green-rgb);
+  --callout-done: var(--ctp-green-rgb);
+
+  /* question 系（黄色，疑问待解） */
+  --callout-question: var(--ctp-yellow-rgb);
+  --callout-help: var(--ctp-yellow-rgb);
+  --callout-faq: var(--ctp-yellow-rgb);
+
+  /* warning 系（橙色，需注意） */
+  --callout-warning: var(--ctp-peach-rgb);
+  --callout-attention: var(--ctp-peach-rgb);
+
+  /* important 系（紫色，重要事项） */
+  --callout-important: var(--ctp-mauve-rgb);
+
+  /* caution 系（粉红，操作不可逆） */
+  --callout-caution: var(--ctp-maroon-rgb);
+
+  /* danger 系（红色，严重后果） */
+  --callout-danger: var(--ctp-red-rgb);
+  --callout-error: var(--ctp-red-rgb);
+  --callout-fail: var(--ctp-red-rgb);
+  --callout-failure: var(--ctp-red-rgb);
+  --callout-missing: var(--ctp-red-rgb);
+
+  /* bug（红色，已知问题） */
+  --callout-bug: var(--ctp-red-rgb);
+
+  /* example / summary（浅紫，示例摘要） */
+  --callout-example: var(--ctp-lavender-rgb);
+  --callout-summary: var(--ctp-lavender-rgb);
+  --callout-tldr: var(--ctp-lavender-rgb);
+
+  /* abstract（蓝紫，概要） */
+  --callout-abstract: var(--ctp-sapphire-rgb);
+
+  /* quote / cite（rosewater，温和不抢戏） */
+  --callout-quote: var(--ctp-rosewater-rgb);
+  --callout-cite: var(--ctp-rosewater-rgb);
+}
+

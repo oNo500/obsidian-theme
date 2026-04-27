@@ -95,6 +95,25 @@ obsidian eval code="JSON.stringify({
 obsidian command id="theme:toggle-light-dark"
 ```
 
+### 切换编辑器视图 / 阅读视图
+
+```bash
+obsidian command id="markdown:toggle-preview"
+```
+
+> [!WARNING]
+> 不要用 `obsidian eval` 调 `leaf.setViewState({state:{mode:'preview'}})` 强切。会触发 `TypeError: this.currentMode.getEphemeralState is not a function`——`setViewState` 内部假设 mode 实例满足完整接口，但绕过命令路径手动构造的 state 不一定。统一走 `obsidian command` 最安全。
+
+### 验证某个文件是否正在用阅读视图
+
+source 视图下 `<pre>` 不在主 DOM；阅读视图下才有。比起检测 `.markdown-source-view` / `.markdown-preview-view` 的存在（两种视图下都可能有），更可靠的判定是：
+
+```bash
+obsidian eval code="document.querySelectorAll('.markdown-rendered pre').length"
+```
+
+返回 > 0 = 阅读视图渲染到了视口范围内的代码块。Obsidian 阅读视图是惰性渲染——不在视口内的 section 不 mount，验证时记得让目标内容进入视口。
+
 ### 确认 CSS 真的加载到 DOM
 
 ```bash

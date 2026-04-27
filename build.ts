@@ -10,9 +10,10 @@ const TOKENS_OUT = "src/tokens/generated.css";
 
 function renderFlavor(flavorName: "mocha" | "latte"): string {
   return flavors[flavorName].colorEntries
-    .flatMap(([name, { hex, hsl, accent }]) => {
+    .flatMap(([name, { hex, hsl, rgb, accent }]) => {
       const lines = [`  --ctp-${name}: ${hex};`];
-      // 强调色额外输出 HSL 分量，供覆盖 Obsidian 的 --accent-h/s/l 用
+      // 强调色额外输出 HSL 分量（覆盖 Obsidian --accent-h/s/l）和 RGB triplet
+      // （供 Obsidian --callout-* 这类期望 "r, g, b" 格式的变量使用）
       if (accent) {
         const h = hsl.h.toFixed(1);
         const s = (hsl.s * 100).toFixed(1) + "%";
@@ -21,6 +22,7 @@ function renderFlavor(flavorName: "mocha" | "latte"): string {
           `  --ctp-${name}-h: ${h};`,
           `  --ctp-${name}-s: ${s};`,
           `  --ctp-${name}-l: ${l};`,
+          `  --ctp-${name}-rgb: ${rgb.r}, ${rgb.g}, ${rgb.b};`,
         );
       }
       return lines;
