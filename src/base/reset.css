@@ -34,6 +34,13 @@ body {
   transition: background-color 120ms ease;
 }
 
+/* 外链图标：删掉 Obsidian 默认 ↗ SVG（背景贴图 + padding-right）。
+   外链与内链通过颜色 / hover 行为已能区分，不需要额外图标 */
+.external-link {
+  background-image: none;
+  padding-right: 0;
+}
+
 /* 全局焦点环：用户主色 + 微微 outline，比 Obsidian 默认更明显
    focus-visible 而不是 focus，避免点击时也显示 */
 *:focus-visible {
