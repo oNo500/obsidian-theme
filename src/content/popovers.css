@@ -16,9 +16,7 @@
     0 1px 4px rgba(0, 0, 0, 0.25);
 }
 
-/* modal 弹窗：command palette / quick switcher / settings */
-.modal,
-.modal-bg + .modal-container .modal {
+.modal {
   background: var(--ctp-crust);
   border: none;
   border-radius: 8px;
@@ -33,8 +31,7 @@
   backdrop-filter: blur(2px);
 }
 
-/* command palette / quick switcher 选中项 */
-.suggestion-item.is-selected,
+/* .suggestion-item.is-selected 由 prompt.css 用 accent-tint 接管，这里只剩 menu */
 .menu-item.is-selected,
 .menu-item:hover {
   background: var(--ctp-surface0);

@@ -7,7 +7,7 @@ body {
   --tag-radius: 1em;
   --tag-weight: 500;
 
-  /* hover 时加深：normal 色 81% 明度 → hover 88% 提高对比度 */
+  /* hover：accent 色提亮 0.07 oklch L、底色 18% accent —— 跟 link hover (+0.06) 一档接近 */
   --tag-color-hover: oklch(from var(--user-accent) calc(l + 0.07) c h);
   --tag-background-hover: oklch(from var(--user-accent) l c h / 0.18);
 }

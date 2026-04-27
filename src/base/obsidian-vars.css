@@ -20,6 +20,12 @@ body {
 
   /* on-accent 背景上的文字色（Obsidian 不会自己派生这个） */
   --text-on-accent: var(--ctp-base);
+
+  /*
+    Settings 面板里 .setting-group .setting-items 卡片底色。
+    Obsidian 硬编码 #242424 跟主题脱钩；改 mantle 跟 sidebar 同语言。
+  */
+  --setting-items-background: var(--ctp-mantle);
 }
 
 /*

@@ -3,7 +3,11 @@ body {
   --nav-item-background-active: oklch(from var(--user-accent) l c h / 0.12);
   --nav-item-background-hover: var(--ctp-surface0);
   --nav-item-color-active: var(--user-accent);
-  --nav-item-weight-active: 600;
+  /*
+    不动 weight，避免激活态加粗导致整行字符宽度变化、推挤后续 sibling
+    （Obsidian 默认 700，我们走默认 weight 同档，激活靠 color 区分就够）
+  */
+  --nav-item-weight-active: inherit;
 
   /* 文件树缩进引导线：彻底去掉，靠缩进本身表达层级 */
   --nav-indentation-guide-color: transparent;
@@ -24,12 +28,12 @@ body {
   min-width: 0;
 }
 
-/* TOC 选中态：去掉背景，仅文字 accent + 加粗，避免整行紫底太重 */
+/* TOC 选中态：去 bg，accent 文字。
+   不加 weight 避免抖动（加粗会改字符宽度，推挤其他行/截断省略号） */
 .workspace-leaf-content[data-type="outline"] .tree-item-self.is-active,
 .workspace-leaf-content[data-type="outline"] .tree-item-self.is-selected {
   background: transparent;
   color: var(--user-accent);
-  font-weight: 600;
 }
 
 /*

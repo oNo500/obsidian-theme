@@ -1,55 +1,37 @@
 /*
-  Settings 面板（.modal.mod-settings.mod-sidebar-layout）
-  默认 modal-bg-color 是接近黑的 surface，跟 workspace 视觉脱节。
-  整体布局：左 nav (mantle) + 右 content (base)，跟主窗口 ribbon/editor 同语言。
+  Settings 主面板（.modal.mod-settings）。
+  popovers.css 给所有 .modal 设了 crust + 8px 通用浮窗样式；这里特地走 base + 12px：
+  Settings 是大型操作面板，调子靠近 editor 而不是浮窗，避免它"飘"。
 */
 
 .modal.mod-settings {
   background: var(--ctp-base);
   border-radius: 12px;
-  border: none;
   box-shadow: 0 12px 40px oklch(from var(--ctp-crust) l c h / 0.6);
 }
 
-/* modal 内部 bg 也透传（Obsidian 用 --modal-background 多处叠加） */
-.modal.mod-settings,
-.modal.mod-settings .modal-content {
-  --modal-background: var(--ctp-base);
-}
-
-/* setting-items 卡片背景：Obsidian 硬编码 --setting-items-background: #242424
-   覆盖成 ctp mantle，与左侧 nav 和主窗口 sidebar 同语言（base 下沉一档） */
-body {
-  --setting-items-background: var(--ctp-mantle);
-}
-
-/* 卡片内分隔线：底是 mantle，用 surface0 才看得清 */
-.modal.mod-settings .setting-group .setting-items .setting-item {
-  border-top-color: var(--ctp-surface0);
-}
-
-/* modal 外层遮罩弱化：默认 rgba(0,0,0,0.5) 叠在 base 上接近纯黑 */
-.modal-container.mod-dim .modal-bg {
+/*
+  blur 仅给 settings：popovers.css 已经统一给所有 .modal-bg 配 blur(2px)，
+  Settings 是大面板需要更强压制感，独占 :has() 选择器命中它。
+*/
+.modal-container:has(.modal.mod-settings) .modal-bg {
   background-color: oklch(from var(--ctp-crust) l c h / 0.55);
   backdrop-filter: blur(4px);
 }
 
-/* 关闭按钮 hover */
 .modal.mod-settings .modal-close-button:hover,
 .modal.mod-settings .modal-setting-back-button:hover {
   background: var(--ctp-surface0);
   color: var(--ctp-text);
 }
 
-/* ----- 左侧 vertical-tab-header（导航区） ----- */
-
+/* 左侧 nav：单独 mantle 区块（与主窗口 sidebar 同语言） */
 .modal.mod-settings .vertical-tab-header {
   background: var(--ctp-mantle);
   border-right: none;
   padding: 16px 8px;
 }
 
-/* 分组标题（"选项" / "核心插件"）：弱化 */
 .modal.mod-settings .vertical-tab-header-group-title {
   color: var(--ctp-overlay0);
   font-size: 0.75em;
@@ -58,7 +40,6 @@ body {
   padding: 8px 12px 4px;
 }
 
-/* 单条 nav item */
 .modal.mod-settings .vertical-tab-nav-item {
   border-radius: 6px;
   border: none;
@@ -76,44 +57,39 @@ body {
 .modal.mod-settings .vertical-tab-nav-item.is-active {
   background: color-mix(in oklab, var(--user-accent) 16%, transparent);
   color: var(--user-accent);
-  font-weight: 500;
 }
 
-/* nav item 内部图标继承当前 color */
 .modal.mod-settings .vertical-tab-nav-item-icon .svg-icon {
   color: inherit;
 }
 
-/* ----- 右侧 vertical-tab-content（设置项区） ----- */
-
+/* 右侧 content 区：与 editor 同 base，跟左 nav 形成 base/mantle 主-辅关系 */
 .modal.mod-settings .vertical-tab-content-container {
   background: var(--ctp-base);
 }
 
 .modal.mod-settings .vertical-tab-content {
-  padding: 24px 32px;
+  padding: 24px 32px 76px;
 }
 
-/* 顶部"编辑器" / 当前 tab 标题（modal-title 里那段文字） */
 .modal.mod-settings .modal-title {
   color: var(--ctp-text);
   font-weight: 600;
 }
 
-/* 单条 setting-item：行间细分隔（base 上画 surface0 横线即可） */
-.modal.mod-settings .setting-item {
+/*
+  setting-item 默认全部画顶线，组内首项用 :not(:first-child) 排除——
+  避免 :first-child 单独写规则跟其他 specificity 更高的规则冲突。
+*/
+.modal.mod-settings .setting-items > .setting-item:not(:first-child) {
   border-top: 1px solid var(--ctp-surface0);
+}
+
+.modal.mod-settings .setting-item {
   padding: 14px 0;
 }
 
-/* 组内首项不重复画线（setting-items 容器内首项） */
-.modal.mod-settings .setting-items > .setting-item:first-child {
-  border-top: none;
-}
-
-/* setting-item-heading（"显示" / "行为" / "高级"）：次级 section 标题 */
 .modal.mod-settings .setting-item-heading {
-  border-top: none;
   padding-top: 28px;
   padding-bottom: 8px;
   margin-bottom: 4px;
@@ -125,7 +101,6 @@ body {
   font-weight: 600;
 }
 
-/* 普通条目的 name / description */
 .modal.mod-settings .setting-item-name {
   color: var(--ctp-text);
 }
@@ -136,7 +111,6 @@ body {
   line-height: 1.5;
 }
 
-/* 描述里的 a / code 跟正文一致 */
 .modal.mod-settings .setting-item-description code {
   background: var(--ctp-surface0);
   color: var(--ctp-pink);
@@ -145,9 +119,8 @@ body {
   font-size: 0.9em;
 }
 
-/* select / button / input 不在这里写——已经走全局 --interactive-normal (surface0) 派生 */
+/* select / button / input 不在这里覆盖——走全局 --interactive-normal */
 
-/* setting-item 旁的齿轮按钮 hover */
 .modal.mod-settings .clickable-icon.extra-setting-button:hover {
   background: var(--ctp-surface0);
   color: var(--ctp-text);

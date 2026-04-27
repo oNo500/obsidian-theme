@@ -1,4 +1,3 @@
-/* 状态栏 item hover：弱化高亮 */
 .status-bar-item:hover {
   color: var(--ctp-text);
   background: var(--ctp-surface0);

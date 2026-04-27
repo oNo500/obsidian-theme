@@ -17,7 +17,6 @@
   border-bottom: 1px solid var(--ctp-surface0);
 }
 
-/* 单条建议：去 border，rounded hover */
 .suggestion-item {
   border: none;
   border-radius: 6px;
@@ -29,20 +28,19 @@
   color: var(--ctp-text);
 }
 
-/* 命中字符：accent 色，不加底色（避免选中态叠 bg 视觉糊） */
+/* 命中字符不加底色：选中态已有 bg，叠加会糊 */
 .suggestion-highlight {
   color: var(--user-accent);
   font-weight: 600;
 }
 
-/* 类型前缀（如"白板"、文件夹路径）：弱化 */
+/* 类型前缀（"白板"、文件夹路径等） */
 .suggestion-prefix {
   color: var(--ctp-overlay0);
   font-size: 0.85em;
   margin-right: 6px;
 }
 
-/* 右侧快捷键 kbd：胶囊 surface1 */
 .suggestion-hotkey,
 .prompt-instruction-command,
 kbd {
@@ -56,14 +54,12 @@ kbd {
   box-shadow: none;
 }
 
-/* 底部说明栏：弱化 */
 .prompt-instructions {
   border-top: 1px solid var(--ctp-surface0);
   color: var(--ctp-subtext0);
   font-size: 0.8em;
 }
 
-/* 空结果状态 */
 .suggestion-empty {
   color: var(--ctp-overlay0);
   text-align: center;

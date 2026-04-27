@@ -18,7 +18,7 @@ body {
   --code-important: var(--ctp-maroon);
 }
 
-/* 行内 code：单独的浅色背景 + 内边距，避免贴着正文挤 */
+/* 行内 code 加 padding 避免贴着正文挤 */
 .markdown-rendered code:not(pre code),
 .cm-inline-code {
   background: var(--ctp-surface0);
@@ -26,7 +26,6 @@ body {
   border-radius: 3px;
 }
 
-/* code block：横向滚动而非折行 */
 .markdown-rendered pre {
   background: var(--ctp-mantle);
   padding: 0.9em 1em;
@@ -34,7 +33,7 @@ body {
   overflow-x: auto;
 }
 
-/* code block 内的 code 元素去掉 inline 样式（它继承自上面的 inline 规则） */
+/* pre > code 必须 reset，否则继承上面 inline code 规则会双层 padding/bg */
 .markdown-rendered pre code {
   background: transparent;
   padding: 0;
