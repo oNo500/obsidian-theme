@@ -1,5 +1,6 @@
 import { bundle } from "lightningcss";
 import { watch } from "chokidar";
+import { flavors } from "@catppuccin/palette";
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 
@@ -7,8 +8,36 @@ const ENTRY = "src/theme.css";
 const OUT = "theme.css";
 const TOKENS_OUT = "src/tokens/generated.css";
 
+function renderFlavor(flavorName: "mocha" | "latte"): string {
+  return flavors[flavorName].colorEntries
+    .flatMap(([name, { hex, hsl, accent }]) => {
+      const lines = [`  --ctp-${name}: ${hex};`];
+      // 强调色额外输出 HSL 分量，供覆盖 Obsidian 的 --accent-h/s/l 用
+      if (accent) {
+        const h = hsl.h.toFixed(1);
+        const s = (hsl.s * 100).toFixed(1) + "%";
+        const l = (hsl.l * 100).toFixed(1) + "%";
+        lines.push(
+          `  --ctp-${name}-h: ${h};`,
+          `  --ctp-${name}-s: ${s};`,
+          `  --ctp-${name}-l: ${l};`,
+        );
+      }
+      return lines;
+    })
+    .join("\n");
+}
+
 function tokens() {
-  const css = `/* generated — do not edit, run \`bun run tokens\` */\n:root {\n  --tokens-marker: "generated";\n}\n`;
+  const css = `/* generated — do not edit, run \`bun run tokens\` */
+.theme-dark {
+${renderFlavor("mocha")}
+}
+
+.theme-light {
+${renderFlavor("latte")}
+}
+`;
   mkdirSync(dirname(TOKENS_OUT), { recursive: true });
   writeFileSync(TOKENS_OUT, css);
   log(`tokens → ${TOKENS_OUT}`);

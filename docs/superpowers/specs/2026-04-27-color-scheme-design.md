@@ -66,31 +66,51 @@
 - 微调单个色阶 → 改对应 `.theme-dark` / `.theme-light` 块里那一行
 - 跨色阶系统改动 → 重新生成 generated.css
 
-### 5. 强调色：单文件切色 + ctp 13 色作语义资源
+### 5. 强调色：覆盖 `--accent-h/s/l` + ctp 13 色作语义资源
 
 两条独立链路：
 
-**链路 A — 主交互色（单文件切色）**
+**链路 A — 主交互色（覆盖 Obsidian HSL 派生入口）**
 
-放弃 Obsidian Settings → Appearance 的 Accent picker（HSL color picker，没法塞预设）。改为在 `src/tokens/accent.css` 里改一行变量切色。
+Obsidian Settings → Appearance 的 Accent picker 把用户选色拆成 `--accent-h` / `--accent-s` / `--accent-l` 写到 body 上，所有衍生强调色（`--interactive-accent` / `--interactive-accent-hover` 等）都通过 `hsl(var(--accent-h), ...)` 派生。
+
+直接写 `--interactive-accent: var(--ctp-mauve)` 不能覆盖——Obsidian 内部规则同 specificity 但更后写入。**正确做法是覆盖 HSL 三分量**，让 Obsidian 自带的派生公式产出我们要的色。
+
+build.ts 在 tokens 生成时给 13 个强调色额外输出 `-h/-s/-l` 分量：
+
+```css
+.theme-dark {
+  --ctp-mauve: #cba6f7;
+  --ctp-mauve-h: 267.4;
+  --ctp-mauve-s: 83.5%;
+  --ctp-mauve-l: 81.0%;
+  /* ... 其它 12 色同样 */
+}
+```
+
+`accent.css` 切色时同步改 4 个变量（同名）：
 
 ```css
 /* src/tokens/accent.css */
-:root {
-  --user-accent: var(--ctp-mauve);  /* 改这一行切色 */
+body {
+  --user-accent:   var(--ctp-mauve);
+  --user-accent-h: var(--ctp-mauve-h);
+  --user-accent-s: var(--ctp-mauve-s);
+  --user-accent-l: var(--ctp-mauve-l);
 }
 ```
 
-`base` 层把它绑到 Obsidian 的 `--interactive-accent`，hover 用 oklch 派生：
+`obsidian-vars.css` 把 `--accent-h/s/l` 绑到 user-accent：
 
 ```css
-:root {
-  --interactive-accent: var(--user-accent);
-  --interactive-accent-hover: oklch(from var(--user-accent) calc(l + 0.08) c h);
+body {
+  --accent-h: var(--user-accent-h);
+  --accent-s: var(--user-accent-s);
+  --accent-l: var(--user-accent-l);
 }
 ```
 
-切色流程：编辑 `src/tokens/accent.css` → `bun run build` → Obsidian `Cmd+R` reload。
+切色流程：编辑 `src/tokens/accent.css` 改 4 行（`mauve` → 别的色名）→ `bun run build` → `obsidian reload`。
 
 **链路 B — 语义着色资源**
 
@@ -111,12 +131,17 @@ src/
 入口 `src/theme.css`：
 
 ```css
-@layer reset, tokens, base, components, features, layouts, overrides;
+@layer reset, tokens, components, features, layouts, overrides;
 
-@import "./tokens/generated.css"    layer(tokens);
-@import "./tokens/accent.css"       layer(tokens);
-@import "./base/obsidian-vars.css"  layer(base);
+@import "./tokens/generated.css"   layer(tokens);
+@import "./tokens/accent.css"      layer(tokens);
+
+/* base：覆盖 Obsidian 官方变量必须 unlayered（layer 内规则败给 Obsidian 默认 unlayered 规则） */
+@import "./base/obsidian-vars.css";
 ```
+
+> [!IMPORTANT]
+> `base/obsidian-vars.css` 不能放在 `@layer base` 里。Obsidian 内置 CSS 是 unlayered，按 CSS Cascade Layers 规范 unlayered 规则**优先级高于任何 layer**，把覆盖规则关进 layer 等于自废武功。
 
 被替换/删除：
 
@@ -127,12 +152,12 @@ src/
 
 ### `src/tokens/generated.css`（自动生成）
 
-build.ts 的 `tokens()` 函数产出：
+build.ts 的 `tokens()` 函数产出。每个强调色额外多输出 3 个 HSL 分量：
 
 ```css
 /* generated — do not edit, run `bun run tokens` */
 .theme-dark {
-  /* mocha：26 个变量（6 暗色背景 + 3 overlay + 2 subtext + 1 text + 14 accent，含 maroon） */
+  /* mocha：26 个 hex 变量 + 14 强调色 × 3 HSL 分量 */
   --ctp-base: #1e1e2e;
   --ctp-mantle: #181825;
   --ctp-crust: #11111b;
@@ -172,18 +197,21 @@ build.ts 的 `tokens()` 函数产出：
 ### `src/tokens/accent.css`（手写）
 
 ```css
-:root {
-  /* 切色入口：从 ctp 13 强调色里选一个 */
-  --user-accent: var(--ctp-mauve);
+body {
+  /* 切色入口：从 ctp 13 强调色里选一个，名称同步改 4 行 */
+  --user-accent:   var(--ctp-mauve);
+  --user-accent-h: var(--ctp-mauve-h);
+  --user-accent-s: var(--ctp-mauve-s);
+  --user-accent-l: var(--ctp-mauve-l);
 }
 ```
 
 ### `src/base/obsidian-vars.css`（手写）
 
-把 Obsidian 官方核心变量绑到 ctp 名。第一版只覆盖最关键的 10 个（决策文档「必背 10 个变量」）：
+把 Obsidian 官方核心变量绑到 ctp 名。第一版只覆盖最关键的几个：
 
 ```css
-:root {
+body {
   /* 三档背景 */
   --background-primary: var(--ctp-base);
   --background-secondary: var(--ctp-mantle);
@@ -194,9 +222,12 @@ build.ts 的 `tokens()` 函数产出：
   --text-muted: var(--ctp-subtext0);
   --text-faint: var(--ctp-overlay0);
 
-  /* 强调色（链路 A） */
-  --interactive-accent: var(--user-accent);
-  --interactive-accent-hover: oklch(from var(--user-accent) calc(l + 0.08) c h);
+  /* 主交互色：覆盖 Obsidian 内部 --accent-h/s/l 派生入口 */
+  --accent-h: var(--user-accent-h);
+  --accent-s: var(--user-accent-s);
+  --accent-l: var(--user-accent-l);
+
+  /* on-accent 背景上的文字色（Obsidian 不会自己派生这个） */
   --text-on-accent: var(--ctp-base);
 }
 ```
@@ -205,49 +236,47 @@ build.ts 的 `tokens()` 函数产出：
 
 ## build.ts 改造
 
-`tokens()` 函数从占位升级为真实派生逻辑：
+`tokens()` 派生逻辑核心：
 
 ```ts
-import { flavors } from "@catppuccin/palette";
-
-function tokens() {
-  const dark = flavors.mocha.colorEntries
-    .map(([name, { hex }]) => `  --ctp-${name}: ${hex};`)
+function renderFlavor(flavorName: "mocha" | "latte"): string {
+  return flavors[flavorName].colorEntries
+    .flatMap(([name, { hex, hsl, accent }]) => {
+      const lines = [`  --ctp-${name}: ${hex};`];
+      // 强调色额外输出 HSL 分量，供覆盖 Obsidian 的 --accent-h/s/l 用
+      if (accent) {
+        const h = hsl.h.toFixed(1);
+        const s = (hsl.s * 100).toFixed(1) + "%";
+        const l = (hsl.l * 100).toFixed(1) + "%";
+        lines.push(
+          `  --ctp-${name}-h: ${h};`,
+          `  --ctp-${name}-s: ${s};`,
+          `  --ctp-${name}-l: ${l};`,
+        );
+      }
+      return lines;
+    })
     .join("\n");
-  const light = flavors.latte.colorEntries
-    .map(([name, { hex }]) => `  --ctp-${name}: ${hex};`)
-    .join("\n");
-
-  const css = `/* generated — do not edit, run \`bun run tokens\` */
-.theme-dark {
-${dark}
-}
-
-.theme-light {
-${light}
-}
-`;
-  mkdirSync(dirname(TOKENS_OUT), { recursive: true });
-  writeFileSync(TOKENS_OUT, css);
-  log(`tokens → ${TOKENS_OUT}`);
 }
 ```
+
+要点：
+
+- `@catppuccin/palette` 的 `color.hsl` 是 `{h: number, s: 0..1, l: 0..1}`，s/l 要乘 100 加 `%` 才符合 CSS `hsl()` 语法
+- `color.accent: true` 标记 13 个强调色之一（Catppuccin 实际暴露 14 个含 maroon），只对它们输出 HSL 分量
 
 依赖：`bun add -d @catppuccin/palette`
 
 ## 验证
 
-完成后通过两步验证：
+完成后通过 `obsidian` CLI 自动化验证（详见 `README.md` 的「调试与验证」段落）。核心检查点：
 
-1. **build 验证**：`bun run build` 无报错，`theme.css` 体积约 < 5KB（26 色 × 2 套 + 10 个 var binding 都很小）
-2. **DevTools 验证**：在 Obsidian 加载主题，Console 跑：
+- 暗模式：`--ctp-base` = `#1e1e2e`，`--background-primary` = `#1e1e2e`，`--accent-h` ≈ 267
+- 亮模式：`--ctp-base` = `#eff1f5`，`--background-primary` = `#eff1f5`，`--accent-h` ≈ 266
+- `--interactive-accent` 由 Obsidian 内部 `hsl(var(--accent-h), ...)` 自动派生，应等于选中 ctp 强调色的 HSL 表示
 
-```js
-getComputedStyle(document.body).getPropertyValue('--ctp-base')
-getComputedStyle(document.body).getPropertyValue('--interactive-accent')
-```
-
-切到 Light 模式重跑，色值应跟着变。
+> [!IMPORTANT]
+> Obsidian 不会自动 reload 主题文件。修改 `theme.css` 后必须 `obsidian reload` 整个 vault（仅 `theme:set` 切换不重读硬盘）。
 
 ## 不做的事
 

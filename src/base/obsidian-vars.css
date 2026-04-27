@@ -1,0 +1,19 @@
+body {
+  /* 三档背景 */
+  --background-primary: var(--ctp-base);
+  --background-secondary: var(--ctp-mantle);
+  --background-modifier-border: var(--ctp-surface1);
+
+  /* 三档文字 */
+  --text-normal: var(--ctp-text);
+  --text-muted: var(--ctp-subtext0);
+  --text-faint: var(--ctp-overlay0);
+
+  /* 主交互色：覆盖 Obsidian 内部 --accent-h/s/l，让其自带的派生链路自然产出 mauve 主色 */
+  --accent-h: var(--user-accent-h);
+  --accent-s: var(--user-accent-s);
+  --accent-l: var(--user-accent-l);
+
+  /* on-accent 背景上的文字色（Obsidian 不会自己派生这个） */
+  --text-on-accent: var(--ctp-base);
+}
