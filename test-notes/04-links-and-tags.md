@@ -14,7 +14,7 @@ aliases: [Links Test]
 
 带 heading 锚点：[[01-typography-cjk#一级标题：CJK Mixed With Latin]]。
 
-带 block 引用：[[01-typography-cjk^block]]（如果存在 block ID）。
+带 block 引用：[[01-typography-cjk#^block-id-1]]（指向 typography 笔记里的任务列表项）。
 
 不存在的链接（应该有视觉提示是 unresolved）：[[这个文件不存在]]、[[non-existent-file]]。
 

@@ -28,6 +28,13 @@ tags: [test, typography]
 2. Step two: install dependencies
 3. 第三步：运行 build 命令
 
+任务列表（验证 checkbox 样式）：
+
+- [ ] 待办：补充测试笔记 task list
+- [x] 已完成：CJK 排版校准
+- [ ] 进行中：调试搜索面板 ^block-id-1
+- [x] 已完成：实现 file icons via SVG data-URI
+
 #### 四级标题 H4
 
 四级标题视觉权重应明显小于 h3——颜色从 `--ctp-text` 退到 `--ctp-subtext1`。

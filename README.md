@@ -219,6 +219,7 @@ CSS 变量要写在 `body` 选择器上而非 `:root`——Obsidian 的 `theme-d
 - `04-links-and-tags.md` — wikilink / 外链 / unresolved / hashtag
 - `05-properties.md` — frontmatter 的各种字段类型
 - `06-images.md` — 内嵌图、外链图、并排图、宽度调整
+- `07-tables.md` — 对齐 / 行内格式 / 长内容 / 视觉密度
 
 新增样式时把触发语法补到对应笔记，下次改动时直接打开对照看回归。
 
