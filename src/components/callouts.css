@@ -58,3 +58,73 @@ body {
   --callout-cite: var(--ctp-rosewater-rgb);
 }
 
+/*
+  Callout 图标映射：用 Obsidian 内置的 --callout-icon: lucide-xxx 机制，
+  社区约定（参考 catppuccin/obsidian），与生态保持视觉一致
+*/
+
+.callout[data-callout="abstract"],
+.callout[data-callout="summary"],
+.callout[data-callout="tldr"] {
+  --callout-icon: lucide-clipboard-list;
+}
+
+.callout[data-callout="info"] {
+  --callout-icon: lucide-info;
+}
+
+.callout[data-callout="todo"] {
+  --callout-icon: lucide-check-circle-2;
+}
+
+.callout[data-callout="tip"],
+.callout[data-callout="hint"] {
+  --callout-icon: lucide-flame;
+}
+
+.callout[data-callout="important"] {
+  --callout-icon: lucide-alert-circle;
+}
+
+.callout[data-callout="success"],
+.callout[data-callout="check"],
+.callout[data-callout="done"] {
+  --callout-icon: lucide-check;
+}
+
+.callout[data-callout="question"],
+.callout[data-callout="help"],
+.callout[data-callout="faq"] {
+  --callout-icon: lucide-help-circle;
+}
+
+.callout[data-callout="warning"],
+.callout[data-callout="caution"],
+.callout[data-callout="attention"] {
+  --callout-icon: lucide-alert-triangle;
+}
+
+.callout[data-callout="failure"],
+.callout[data-callout="fail"],
+.callout[data-callout="missing"] {
+  --callout-icon: lucide-x;
+}
+
+.callout[data-callout="danger"],
+.callout[data-callout="error"] {
+  --callout-icon: lucide-zap;
+}
+
+.callout[data-callout="bug"] {
+  --callout-icon: lucide-bug;
+}
+
+.callout[data-callout="example"] {
+  --callout-icon: lucide-list;
+}
+
+.callout[data-callout="quote"],
+.callout[data-callout="cite"] {
+  --callout-icon: quote-glyph;
+}
+
