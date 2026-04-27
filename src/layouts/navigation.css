@@ -22,6 +22,21 @@ body {
   color: var(--ctp-subtext1);
 }
 
+/* 文件 / 文件夹名超长截断省略号；hover 时撑开本行显示全名 */
+.nav-file-title-content,
+.nav-folder-title-content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.nav-file-title:hover .nav-file-title-content,
+.nav-folder-title:hover .nav-folder-title-content {
+  white-space: normal;
+  overflow: visible;
+}
+
 /* Outline 大纲：长项换行用 hanging indent，选中项文字色跟着变 accent */
 .workspace-leaf-content[data-type="outline"] .tree-item-inner {
   text-indent: -1em;
