@@ -3,6 +3,8 @@ body {
   --table-header-color: var(--ctp-text);
   --table-header-weight: 600;
   --table-row-background-hover: oklch(from var(--ctp-surface0) l c h / 0.4);
+  --table-row-alt-background-hover: oklch(from var(--ctp-surface0) l c h / 0.4);
+  --table-header-background-hover: var(--ctp-mantle);
   --table-cell-vertical-alignment: top;
 }
 
