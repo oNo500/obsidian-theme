@@ -1,8 +1,11 @@
 # Color Scheme Design
 
 **Date**: 2026-04-27
-**Status**: approved (pending user review)
+**Status**: approved, partially superseded（见文末「后续变更」）
 **Scope**: 配色 token 系统首版实现，对应「上手路径」第 4-6 步
+
+> [!NOTE]
+> 这是首版决策记录，部分条目已被后续变更覆盖。当前实际行为以 [`docs/customizing.md`](../../customizing.md) 为准。变更轨迹见文末「后续变更」段落。
 
 ## 目标
 
@@ -283,5 +286,25 @@ function renderFlavor(flavorName: "mocha" | "latte"): string {
 - 不实现 callout / tag / code block 等具体组件着色（components 层后续工作）
 - 不做色盲验证脚本
 - 不做 Style Settings YAML 注释块
-- 不动 `--interactive-accent` 默认尊重用户的设计——只通过 `--user-accent` 给一个切色出口
+- 不动 `--interactive-accent` 默认尊重用户的设计——只通过 `--user-accent` 给一个切色出口（已反转，见后续变更）
 - 不做 OLED 极暗模式 / 高对比度模式等子模式
+
+## 后续变更
+
+### 2026-04-27 — accent picker 锁死
+
+**反转决策**：从「尊重 Obsidian picker」改为「锁死 ctp 调色板」。
+
+**触发**：实测发现 picker 选红色后视觉「部分生效」——Obsidian 内置 CSS（按钮、链接）跟着 picker 变红，但我们自己的 CSS（用 `var(--user-accent)`）仍是 mauve。两套强调色并存，比"完全不生效"更糟。
+
+**根因**：picker 把 `--accent-h/s/l` 写成 inline style 在 `body` 上，inline style 优先级比普通选择器规则高，我们 `body { --accent-h: var(--user-accent-h) }` 输了。
+
+**修法**：在 obsidian-vars.css 三处 `--accent-h/s/l` 加 `!important`，重新赢回 inline style。
+
+**当前状态**：picker 完全无效。切色仍走 `src/tokens/accent.css` 4 行 + rebuild 路径。这跟原始决策"单用户 + 不要 Style Settings + ctp 锁色"的方向一致，原 spec 第 14 行表述偏宽容了。
+
+### 2026-04-27 — `-mocha` / `-latte` 永久后缀 token
+
+**新增能力**：build.ts 在 generated.css 里额外输出一份不受 `theme-dark/light` class 影响的 `--ctp-XXX-mocha` / `--ctp-XXX-latte` 永久变量。
+
+**用途**：`@media print` 之类「必须强制单 flavor」的场景之前硬编码 hex，现在改用变量。彻底消除组件 CSS 里的硬编码颜色（除了纯黑透明阴影和 SVG 内联烧死的 stroke）。
