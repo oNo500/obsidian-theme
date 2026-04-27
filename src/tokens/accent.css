@@ -1,7 +1,7 @@
 body {
   /* 切色入口：从 ctp 13 强调色里选一个，名称同步改两处 */
-  --user-accent:   var(--ctp-green);
-  --user-accent-h: var(--ctp-green-h);
-  --user-accent-s: var(--ctp-green-s);
-  --user-accent-l: var(--ctp-green-l);
+  --user-accent:   var(--ctp-mauve);
+  --user-accent-h: var(--ctp-mauve-h);
+  --user-accent-s: var(--ctp-mauve-s);
+  --user-accent-l: var(--ctp-mauve-l);
 }
