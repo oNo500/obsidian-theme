@@ -28,35 +28,34 @@
 │   ├── tokens/
 │   │   ├── generated.css        # 自动生成：Catppuccin mocha + latte 色板
 │   │   └── accent.css           # 切色入口：改这里 4 行
-│   ├── base/
+│   ├── base/                    # 全局基础规则，不针对具体组件
 │   │   ├── reset.css            # 噪音消除：去 border、统一 scrollbar / focus ring
-│   │   └── obsidian-vars.css    # 覆盖 Obsidian 官方变量（必须 unlayered）
-│   ├── features/
-│   │   ├── typography.css       # CJK 中英混排排版
+│   │   ├── obsidian-vars.css    # 覆盖 Obsidian 官方变量（必须 unlayered）
+│   │   ├── typography.css       # CJK 中英混排字体栈
 │   │   ├── responsive.css       # mobile / tablet 适配
 │   │   └── print.css            # @media print 导出 PDF 友好
-│   ├── components/
-│   │   ├── headings.css         # 标题 1.6/1.35/1.2 em 三级
+│   ├── content/                 # 写笔记时看到的元素
+│   │   ├── headings.css         # 标题 1.8/1.5/1.3 em + hover 图标
 │   │   ├── code.css             # 行内 + 代码块
 │   │   ├── callouts.css         # 12 种类型 + Lucide 图标映射
 │   │   ├── tags.css             # 胶囊 tag
 │   │   ├── blockquote.css       # 左侧 accent 引导线
-│   │   ├── table.css            # 紧凑表格
+│   │   ├── table.css            # 满宽 + 表头深底
 │   │   ├── checkbox.css         # 自定义 checkbox
 │   │   ├── lists.css            # ul / ol 间距与缩进
 │   │   ├── properties.css       # frontmatter / properties UI
 │   │   ├── embed.css            # 内嵌笔记块
-│   │   ├── popovers.css         # 浮层 / modal 用 shadow 不用 border
-│   │   ├── prompt.css           # 命令面板 / quick switcher
-│   │   └── images.css           # 图片圆角 + subtle shadow
-│   └── layouts/
-│       ├── navigation.css       # 文件树
+│   │   ├── images.css           # 图片圆角 + subtle shadow
+│   │   └── popovers.css         # hover 预览 / modal
+│   └── ui/                      # 操作 Obsidian 时看到的 chrome 与面板
+│       ├── navigation.css       # 文件树 + tab + TOC
 │       ├── file-icons.css       # Lucide SVG 图标（.md / .canvas / .pdf 等）
 │       ├── breadcrumb.css       # 面包屑
 │       ├── sidebar.css          # 左右侧栏
 │       ├── status-bar.css       # 底部状态栏
 │       ├── resize-handle.css    # 拖拽柄（hover 才显形）
-│       └── search.css           # 搜索面板（命中词 accent 高亮）
+│       ├── search.css           # 搜索面板（命中词 accent 高亮）
+│       └── prompt.css           # 命令面板 / quick switcher
 ├── test-notes/                  # 仓库本身是 dev vault，测试笔记放这里
 └── .obsidian/themes/obsidian-theme  # symlink → 仓库根（让 Obsidian 把仓库当主题）
 ```
