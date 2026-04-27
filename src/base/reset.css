@@ -7,6 +7,8 @@ body {
   --divider-color: transparent;
   --divider-color-hover: var(--user-accent);
   --titlebar-border-color: transparent;
+  --titlebar-background: var(--ctp-mantle);
+  --titlebar-background-focused: var(--ctp-mantle);
   --status-bar-border-color: transparent;
   --tab-divider-color: transparent;
   --tab-outline-color: transparent;
