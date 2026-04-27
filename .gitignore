@@ -1,5 +1,9 @@
 node_modules/
 
+# negate user-global ignore — this repo wants .claude/ tracked
+!.claude/
+!.claude/CLAUDE.md
+
 .obsidian/workspace*
 .obsidian/cache
 .obsidian/app.json
