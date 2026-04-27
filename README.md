@@ -97,7 +97,7 @@ obsidian reload
 
 ### `obsidian` CLI 是核心调试工具
 
-[obsidian-cli](https://github.com/Yakitrak/obsidian-cli)（`brew install obsidian-cli`）能在运行中的 Obsidian 实例里 eval JS、查 CSS、reload vault。
+[Obsidian 官方 CLI](https://help.obsidian.md/cli) 能在运行中的 Obsidian 实例里 eval JS、查 CSS、reload vault。
 
 > [!IMPORTANT]
 > 修改 `theme.css` 后**必须 reload 整个 vault**。仅切换主题（`theme:set`）不会重读硬盘——Obsidian 会从内存返回旧版本 CSS。
@@ -184,7 +184,7 @@ obsidian eval code="(()=>{
 - 调整选择器特异性（`body` → `body.theme-dark` 等）
 - 或覆盖 Obsidian 的派生入口（如 `--accent-h/s/l` 而非 `--interactive-accent`）
 
-### 常用 obsidian-cli 命令
+### 常用官方 CLI 命令
 
 ```bash
 obsidian themes                          # 列已安装主题
@@ -228,4 +228,4 @@ CSS 变量要写在 `body` 选择器上而非 `:root`——Obsidian 的 `theme-d
 - [@catppuccin/palette](https://github.com/catppuccin/palette) — 配色源数据
 - [lightningcss](https://lightningcss.dev) — CSS bundler
 - [chokidar](https://github.com/paulmillr/chokidar) — watch 模式
-- [obsidian-cli](https://github.com/Yakitrak/obsidian-cli) — 开发调试（`brew install obsidian-cli`）
+- [Obsidian 官方 CLI](https://help.obsidian.md/cli) — 开发调试（随 Obsidian 桌面端附带）
