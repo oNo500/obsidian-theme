@@ -8,10 +8,10 @@ const ENTRY = "src/theme.css";
 const OUT = "theme.css";
 const TOKENS_OUT = "src/tokens/generated.css";
 
-function renderFlavor(flavorName: "mocha" | "latte"): string {
+function renderFlavor(flavorName: "mocha" | "latte", suffix = ""): string {
   return flavors[flavorName].colorEntries
     .flatMap(([name, { hex, hsl, rgb, accent }]) => {
-      const lines = [`  --ctp-${name}: ${hex};`];
+      const lines = [`  --ctp-${name}${suffix}: ${hex};`];
       // 强调色额外输出 HSL 分量（覆盖 Obsidian --accent-h/s/l）和 RGB triplet
       // （供 Obsidian --callout-* 这类期望 "r, g, b" 格式的变量使用）
       if (accent) {
@@ -19,10 +19,10 @@ function renderFlavor(flavorName: "mocha" | "latte"): string {
         const s = (hsl.s * 100).toFixed(1) + "%";
         const l = (hsl.l * 100).toFixed(1) + "%";
         lines.push(
-          `  --ctp-${name}-h: ${h};`,
-          `  --ctp-${name}-s: ${s};`,
-          `  --ctp-${name}-l: ${l};`,
-          `  --ctp-${name}-rgb: ${rgb.r}, ${rgb.g}, ${rgb.b};`,
+          `  --ctp-${name}-h${suffix}: ${h};`,
+          `  --ctp-${name}-s${suffix}: ${s};`,
+          `  --ctp-${name}-l${suffix}: ${l};`,
+          `  --ctp-${name}-rgb${suffix}: ${rgb.r}, ${rgb.g}, ${rgb.b};`,
         );
       }
       return lines;
@@ -31,7 +31,14 @@ function renderFlavor(flavorName: "mocha" | "latte"): string {
 }
 
 function tokens() {
+  // body 上无条件输出两组 -mocha / -latte 后缀变量，
+  // 让 print 这种「必须强制单 flavor」的场景也能用变量而非硬编码 hex
   const css = `/* generated — do not edit, run \`bun run tokens\` */
+body {
+${renderFlavor("mocha", "-mocha")}
+${renderFlavor("latte", "-latte")}
+}
+
 .theme-dark {
 ${renderFlavor("mocha")}
 }
