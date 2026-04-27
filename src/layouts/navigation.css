@@ -16,7 +16,7 @@ body {
   --tab-radius: 6px;
 }
 
-/* Outline 大纲（右侧 TOC）：长项截断省略号，hover 撑开；选中项文字变 accent */
+/* Outline 大纲（右侧 TOC）：长项截断省略号；hover 浮出完整名字卡片，原行不动 */
 .workspace-leaf-content[data-type="outline"] .tree-item-inner {
   white-space: nowrap;
   overflow: hidden;
@@ -24,9 +24,24 @@ body {
   min-width: 0;
 }
 
+.workspace-leaf-content[data-type="outline"] .tree-item-self {
+  position: relative;
+}
+
 .workspace-leaf-content[data-type="outline"] .tree-item-self:hover .tree-item-inner {
-  white-space: normal;
+  position: absolute;
+  right: 100%;
+  top: 0;
+  z-index: 50;
+  background: var(--ctp-surface0);
+  color: var(--ctp-text);
+  padding: 4px 10px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.25);
+  white-space: nowrap;
   overflow: visible;
+  max-width: none;
+  margin-right: 8px;
 }
 
 .workspace-leaf-content[data-type="outline"] .tree-item-self.is-active,
