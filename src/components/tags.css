@@ -1,0 +1,13 @@
+body {
+  /* tag chip：维持 Obsidian 默认 mauve 派生（基于 --accent-h/s/l）
+     只调整视觉细节让 chip 更清爽 */
+  --tag-size: 0.85em;
+  --tag-padding-x: 0.55em;
+  --tag-padding-y: 0.15em;
+  --tag-radius: 1em;
+  --tag-weight: 500;
+
+  /* hover 时加深：normal 色 81% 明度 → hover 88% 提高对比度 */
+  --tag-color-hover: oklch(from var(--user-accent) calc(l + 0.07) c h);
+  --tag-background-hover: oklch(from var(--user-accent) l c h / 0.18);
+}
