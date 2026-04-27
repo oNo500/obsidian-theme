@@ -6,11 +6,23 @@
 /* unlayered：覆盖 Obsidian 内置规则的部分（@layer 优先级低于 unlayered，Obsidian 默认全 unlayered） */
 @import "./base/reset.css";
 @import "./base/obsidian-vars.css";
+
 @import "./features/typography.css";
+
 @import "./components/headings.css";
 @import "./components/code.css";
 @import "./components/callouts.css";
 @import "./components/tags.css";
+@import "./components/blockquote.css";
+@import "./components/table.css";
+@import "./components/checkbox.css";
+@import "./components/lists.css";
+@import "./components/properties.css";
+@import "./components/embed.css";
 @import "./components/popovers.css";
+
 @import "./layouts/navigation.css";
 @import "./layouts/file-icons.css";
+@import "./layouts/breadcrumb.css";
+@import "./layouts/sidebar.css";
+@import "./layouts/status-bar.css";

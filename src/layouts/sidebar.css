@@ -1,0 +1,13 @@
+body {
+  /* Graph view：连线弱化色，节点已经走 ctp 默认 */
+  --graph-line: var(--ctp-surface1);
+
+  /* Search 结果命中高亮：mauve 半透明背景而非默认黄高亮 */
+  --text-highlight-bg: oklch(from var(--user-accent) l c h / 0.25);
+}
+
+/* Search 命中条目 hover */
+.search-result-file-match:hover,
+.search-result-container .tree-item-self:hover {
+  background: var(--ctp-surface0);
+}

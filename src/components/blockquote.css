@@ -1,0 +1,6 @@
+body {
+  /* blockquote 改用弱化色条（surface2），让引用是「弱化的他者声音」而非「主色仪式」 */
+  --blockquote-border-color: var(--ctp-surface2);
+  --blockquote-border-thickness: 2px;
+  --blockquote-color: var(--ctp-subtext1);
+}

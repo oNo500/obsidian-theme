@@ -1,0 +1,16 @@
+/*
+  内嵌笔记块：去 border，改用 ctp-mantle 浅背景 + 6px 圆角，
+  让嵌入卡片视觉上比正文略「凹」一档
+*/
+.markdown-rendered .markdown-embed,
+.markdown-source-view .markdown-embed {
+  border: none;
+  background: var(--ctp-mantle);
+  border-radius: 6px;
+  padding: 0.5em 1em;
+}
+
+/* embed 内的 markdown 内容字号略小，区分嵌入与本笔记 */
+.markdown-embed-content {
+  font-size: 0.95em;
+}

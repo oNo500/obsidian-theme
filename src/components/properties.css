@@ -1,0 +1,10 @@
+/*
+  Frontmatter properties 区与正文之间增加轻微视觉分隔：
+  下边轻微阴影代替 border，跟「无 border 偏好」一致
+*/
+.markdown-rendered .metadata-container,
+.markdown-source-view .metadata-container {
+  padding-bottom: 0.6em;
+  margin-bottom: 1.5em;
+  box-shadow: 0 1px 0 var(--ctp-surface0);
+}

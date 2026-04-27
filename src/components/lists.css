@@ -1,0 +1,7 @@
+body {
+  /* 列表 bullet 弱化：用 overlay1 而非默认正文色，让结构信号比内容弱一档 */
+  --list-bullet-color: var(--ctp-overlay1);
+  --list-bullet-size: 0.3em;
+  --list-marker-color: var(--ctp-overlay1);
+  --list-marker-color-hover: var(--user-accent);
+}

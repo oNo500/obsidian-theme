@@ -1,0 +1,38 @@
+body {
+  --table-header-background: var(--ctp-mantle);
+  --table-header-color: var(--ctp-text);
+  --table-header-weight: 600;
+  --table-row-alt-background: oklch(from var(--ctp-surface0) l c h / 0.4);
+  --table-row-background-hover: var(--ctp-surface0);
+  --table-cell-vertical-alignment: top;
+}
+
+/* 表格容器：圆角 + 不溢出 */
+.markdown-rendered table,
+.markdown-source-view table {
+  border-collapse: collapse;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* 单元格水平分隔：1px ctp surface0，仅水平不竖向，安静但能区分行 */
+.markdown-rendered table tr,
+.markdown-source-view table tr {
+  border-bottom: 1px solid var(--ctp-surface0);
+}
+.markdown-rendered table tr:last-child,
+.markdown-source-view table tr:last-child {
+  border-bottom: none;
+}
+
+/* 表头 padding 跟单元格一致，但底部加 2px ctp surface1 分隔（强一点） */
+.markdown-rendered th,
+.markdown-source-view th {
+  border-bottom: 2px solid var(--ctp-surface1);
+  text-align: left;
+  padding: 0.5em 0.75em;
+}
+.markdown-rendered td,
+.markdown-source-view td {
+  padding: 0.5em 0.75em;
+}

@@ -1,0 +1,12 @@
+/*
+  顶部面包屑：弱化路径段，强化当前文件名
+  不动 separator（默认已是 overlay0，最弱化）
+*/
+
+/* 路径段（test-notes）保持 subtext0 弱化色 —— 默认就是 */
+
+/* 当前文件名（last child）走 ctp text 最强色，让用户知道「我在哪」 */
+.view-header-title-container .view-header-title {
+  color: var(--ctp-text);
+  font-weight: 500;
+}

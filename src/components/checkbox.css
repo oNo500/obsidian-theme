@@ -1,0 +1,15 @@
+body {
+  --checkbox-border-color: var(--ctp-overlay0);
+  --checkbox-border-color-hover: var(--user-accent);
+  --checkbox-radius: 4px;
+  --checkbox-size: 16px;
+}
+
+/* 完成的任务：文字弱化 + 删除线，让视觉重心移到未完成项 */
+.markdown-rendered .task-list-item-checkbox:checked + *,
+.markdown-source-view .task-list-item.is-checked,
+.markdown-rendered li.task-list-item:has(> input:checked) {
+  color: var(--ctp-overlay1);
+  text-decoration: line-through;
+  text-decoration-color: var(--ctp-overlay0);
+}
