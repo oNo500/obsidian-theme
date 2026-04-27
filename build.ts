@@ -1,12 +1,19 @@
 import { bundle } from "lightningcss";
 import { watch } from "chokidar";
 import { flavors } from "@catppuccin/palette";
-import { writeFileSync, mkdirSync } from "node:fs";
-import { dirname } from "node:path";
+import { writeFileSync, mkdirSync, copyFileSync, existsSync } from "node:fs";
+import { dirname, join } from "node:path";
 
 const ENTRY = "src/theme.css";
 const OUT = "theme.css";
+const MANIFEST = "manifest.json";
 const TOKENS_OUT = "src/tokens/generated.css";
+
+// 要同步的目标 vault 列表（每个路径都会装一份独立 theme.css 副本）
+// 加 vault：往这里追加路径即可。iCloud vault 不能用 symlink，用拷贝最稳。
+const TARGET_VAULTS = [
+  "/Users/xiu/Library/Mobile Documents/iCloud~md~obsidian/Documents/notes",
+];
 
 // 暗色档 flavor 选择：mocha（默认深紫黑）/ macchiato（次深）/ frappe（中浅）
 // 改这里 → bun run tokens 重生成 generated.css
@@ -81,6 +88,20 @@ function build() {
   bundleCSS({ minify: true });
 }
 
+function sync() {
+  for (const vault of TARGET_VAULTS) {
+    if (!existsSync(vault)) {
+      error("sync skip", `vault not found: ${vault}`);
+      continue;
+    }
+    const dest = join(vault, ".obsidian", "themes", "obsidian-theme");
+    mkdirSync(dest, { recursive: true });
+    copyFileSync(OUT, join(dest, OUT));
+    copyFileSync(MANIFEST, join(dest, MANIFEST));
+    log(`sync → ${dest}`);
+  }
+}
+
 function dev() {
   tokens();
   bundleCSS({ minify: false });
@@ -117,7 +138,14 @@ switch (cmd) {
   case "watch":
     dev();
     break;
+  case "sync":
+    sync();
+    break;
+  case "deploy":
+    build();
+    sync();
+    break;
   default:
-    console.error(`unknown command: ${cmd}\nusage: bun build.ts <tokens|build|watch>`);
+    console.error(`unknown command: ${cmd}\nusage: bun build.ts <tokens|build|watch|sync|deploy>`);
     process.exit(1);
 }

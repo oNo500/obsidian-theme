@@ -6,7 +6,9 @@
   "scripts": {
     "tokens": "bun build.ts tokens",
     "build": "bun build.ts build",
-    "dev": "bun build.ts watch"
+    "dev": "bun build.ts watch",
+    "sync": "bun build.ts sync",
+    "deploy": "bun build.ts deploy"
   },
   "devDependencies": {
     "@catppuccin/palette": "^1.8.0",
