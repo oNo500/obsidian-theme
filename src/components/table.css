@@ -2,7 +2,7 @@ body {
   --table-header-background: var(--ctp-mantle);
   --table-header-color: var(--ctp-text);
   --table-header-weight: 600;
-  --table-row-background-hover: transparent;
+  --table-row-background-hover: oklch(from var(--ctp-surface0) l c h / 0.4);
   --table-cell-vertical-alignment: top;
 }
 
