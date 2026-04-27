@@ -1,15 +1,16 @@
 body {
-  --table-header-background: var(--ctp-mantle);
+  --table-header-background: transparent;
   --table-header-color: var(--ctp-text);
   --table-header-weight: 600;
-  --table-row-alt-background: oklch(from var(--ctp-surface0) l c h / 0.4);
-  --table-row-background-hover: var(--ctp-surface0);
+  --table-row-alt-background: transparent;
+  --table-row-background-hover: transparent;
   --table-cell-vertical-alignment: top;
 }
 
-/* 表格容器：圆角 + 不溢出 */
+/* 表格容器：满宽、圆角不溢出 */
 .markdown-rendered table,
 .markdown-source-view table {
+  width: 100%;
   border-collapse: collapse;
   border-radius: 6px;
   overflow: hidden;
