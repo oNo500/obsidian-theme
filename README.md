@@ -13,6 +13,7 @@
 
 ## 文档
 
+- **[修改主题指南](docs/customizing.md)** —— 想改某处先看这个
 - 完整决策记录：vault 笔记 `00-inbox/obsidian-theme.md`
 - 配色架构 spec：[`docs/superpowers/specs/2026-04-27-color-scheme-design.md`](docs/superpowers/specs/2026-04-27-color-scheme-design.md)
 
