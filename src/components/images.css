@@ -1,0 +1,25 @@
+/*
+  图片：圆角 + subtle 阴影，hover 阴影略加深
+  覆盖 reading view、live preview、外链 <img> 三种路径
+*/
+
+/* 通用 img（外链图直接命中、嵌入图也命中里面的 img） */
+.markdown-rendered img,
+.markdown-preview-view img,
+.markdown-source-view img {
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
+  transition: box-shadow 160ms ease;
+}
+
+.markdown-rendered img:hover,
+.markdown-preview-view img:hover,
+.markdown-source-view img:hover {
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.16);
+}
+
+/* 多图并排：保留默认 inline 行为，只加左右间距 */
+.image-embed + .image-embed,
+.markdown-rendered img + img {
+  margin-left: 8px;
+}
