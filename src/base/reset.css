@@ -43,7 +43,9 @@ body {
 .external-link {
   background-image: none;
   padding-right: 0;
-  text-decoration-style: dotted;
+  text-decoration-style: dashed;
+  text-decoration-color: var(--user-accent);
+  text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
 }
 
