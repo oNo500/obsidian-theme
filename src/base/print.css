@@ -5,29 +5,29 @@
 */
 
 @media print {
-  /* 强制使用 latte（永久 light）token，避免 dark 主题打印出黑底白字 */
+  /* 强制使用 永久 lighttoken，避免 dark 主题打印出黑底白字 */
   body {
-    --background-primary: var(--ctp-base-latte);
-    --background-secondary: var(--ctp-mantle-latte);
+    --background-primary: var(--ctp-base-light);
+    --background-secondary: var(--ctp-mantle-light);
     --background-modifier-border: transparent;
-    --text-normal: var(--ctp-text-latte);
-    --text-muted: var(--ctp-subtext0-latte);
-    --text-faint: var(--ctp-overlay0-latte);
-    --code-background: var(--ctp-mantle-latte);
-    background: var(--ctp-base-latte);
-    color: var(--ctp-text-latte);
+    --text-normal: var(--ctp-text-light);
+    --text-muted: var(--ctp-subtext0-light);
+    --text-faint: var(--ctp-overlay0-light);
+    --code-background: var(--ctp-mantle-light);
+    background: var(--ctp-base-light);
+    color: var(--ctp-text-light);
   }
 
   /* 链接：保持下划线，外链额外显示 URL（PDF 上指向更明确） */
   a[href] {
-    color: var(--ctp-blue-latte);
+    color: var(--ctp-blue-light);
     text-decoration: underline;
   }
 
   a.external-link[href]::after {
     content: " (" attr(href) ")";
     font-size: 0.85em;
-    color: var(--ctp-subtext0-latte);
+    color: var(--ctp-subtext0-light);
   }
 
   /* 不被切割：代码块、callout、表格、blockquote、图片 */
@@ -50,7 +50,7 @@
   /* 代码块：浅底深字 */
   pre,
   code {
-    background: var(--ctp-mantle-latte);
-    color: var(--ctp-text-latte);
+    background: var(--ctp-mantle-light);
+    color: var(--ctp-text-light);
   }
 }

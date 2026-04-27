@@ -8,7 +8,14 @@ const ENTRY = "src/theme.css";
 const OUT = "theme.css";
 const TOKENS_OUT = "src/tokens/generated.css";
 
-function renderFlavor(flavorName: "mocha" | "latte", suffix = ""): string {
+// 暗色档 flavor 选择：mocha（默认深紫黑）/ macchiato（次深）/ frappe（中浅）
+// 改这里 → bun run tokens 重生成 generated.css
+const DARK_FLAVOR = "macchiato" as const;
+const LIGHT_FLAVOR = "latte" as const;
+
+type FlavorName = "mocha" | "macchiato" | "frappe" | "latte";
+
+function renderFlavor(flavorName: FlavorName, suffix = ""): string {
   return flavors[flavorName].colorEntries
     .flatMap(([name, { hex, hsl, rgb, accent }]) => {
       const lines = [`  --ctp-${name}${suffix}: ${hex};`];
@@ -31,25 +38,25 @@ function renderFlavor(flavorName: "mocha" | "latte", suffix = ""): string {
 }
 
 function tokens() {
-  // body 上无条件输出两组 -mocha / -latte 后缀变量，
+  // body 上无条件输出两组 -dark / -light 后缀变量，
   // 让 print 这种「必须强制单 flavor」的场景也能用变量而非硬编码 hex
-  const css = `/* generated — do not edit, run \`bun run tokens\` */
+  const css = `/* generated — do not edit, run \`bun run tokens\` (dark flavor: ${DARK_FLAVOR}) */
 body {
-${renderFlavor("mocha", "-mocha")}
-${renderFlavor("latte", "-latte")}
+${renderFlavor(DARK_FLAVOR, "-dark")}
+${renderFlavor(LIGHT_FLAVOR, "-light")}
 }
 
 .theme-dark {
-${renderFlavor("mocha")}
+${renderFlavor(DARK_FLAVOR)}
 }
 
 .theme-light {
-${renderFlavor("latte")}
+${renderFlavor(LIGHT_FLAVOR)}
 }
 `;
   mkdirSync(dirname(TOKENS_OUT), { recursive: true });
   writeFileSync(TOKENS_OUT, css);
-  log(`tokens → ${TOKENS_OUT}`);
+  log(`tokens → ${TOKENS_OUT} (dark: ${DARK_FLAVOR})`);
 }
 
 function bundleCSS(opts: { minify: boolean }) {
