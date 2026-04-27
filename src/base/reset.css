@@ -1,0 +1,39 @@
+body {
+  /* Scrollbar：用 ctp 弱化色，hover/active 加强 */
+  --scrollbar-thumb-bg: var(--ctp-surface1);
+  --scrollbar-active-thumb-bg: var(--ctp-overlay0);
+  --scrollbar-bg: transparent;
+
+  /* 焦点环：用户主色，比默认中灰可见性强很多 */
+  --input-focus-border-color: var(--user-accent);
+  --background-modifier-border-focus: var(--user-accent);
+
+  /* 内容区宽度：中英混排 750px 比默认 700 略宽，给中文长句更顺的阅读节奏 */
+  --file-line-width: 750px;
+
+  /* 行高：中文 1.7 比默认 1.5 减压感强 */
+  --line-height-normal: 1.7;
+}
+
+/* WebKit scrollbar：Obsidian 用了 native ::-webkit-scrollbar
+   覆盖 thumb 圆角 + hover 过渡 */
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  transition: background-color 120ms ease;
+}
+
+/* 全局焦点环：用户主色 + 微微 outline，比 Obsidian 默认更明显
+   focus-visible 而不是 focus，避免点击时也显示 */
+*:focus-visible {
+  outline: 2px solid var(--user-accent);
+  outline-offset: 2px;
+}
+
+/* 但输入框、按钮自己的边框已经走 --input-focus-border-color 了，
+   不需要额外 outline，避免双层 */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: none;
+}
