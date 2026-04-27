@@ -16,3 +16,20 @@ body {
   --tab-radius: 6px;
 }
 
+/* 文件夹标题字重稍粗于文件名，让层级一眼可辨 */
+.nav-folder-title {
+  font-weight: 500;
+  color: var(--ctp-subtext1);
+}
+
+/* Outline 大纲：长项换行用 hanging indent，选中项文字色跟着变 accent */
+.workspace-leaf-content[data-type="outline"] .tree-item-inner {
+  text-indent: -1em;
+  padding-left: 1em;
+}
+
+.workspace-leaf-content[data-type="outline"] .tree-item-self.is-active,
+.workspace-leaf-content[data-type="outline"] .tree-item-self.is-selected {
+  color: var(--user-accent);
+}
+
