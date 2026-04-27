@@ -1,7 +1,9 @@
-@layer reset, tokens, components, features, layouts, overrides;
+@layer reset, tokens, overrides;
 
 @import "./tokens/generated.css"   layer(tokens);
 @import "./tokens/accent.css"      layer(tokens);
 
-/* base：覆盖 Obsidian 官方变量，必须 unlayered（Obsidian 默认样式 unlayered，layer 内规则会败给它） */
+/* unlayered：覆盖 Obsidian 内置规则的部分（@layer 优先级低于 unlayered，Obsidian 默认全 unlayered） */
 @import "./base/obsidian-vars.css";
+@import "./features/typography.css";
+@import "./components/headings.css";

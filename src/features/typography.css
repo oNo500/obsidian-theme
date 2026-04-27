@@ -1,0 +1,21 @@
+/*
+  中英混排字体栈：西文字体在前（匹配西文字符），中文字体在后（西文字体不含的中文字符回退到这里）。
+  Obsidian 把 --font-*-theme 拼到系统默认栈最前，因此主题只覆盖这一截。
+*/
+
+body {
+  /* 正文 / 阅读视图 */
+  --font-text-theme:
+    "Inter Variable", "Inter",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC";
+
+  /* UI（侧边栏、菜单、设置面板等） */
+  --font-interface-theme:
+    "Inter Variable", "Inter",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC";
+
+  /* 等宽（code block、行内 code）：西文走程序员字体，中文回退正文 sans（中文不强求等宽） */
+  --font-monospace-theme:
+    "JetBrains Mono", "Fira Code", "SF Mono",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei";
+}
