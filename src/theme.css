@@ -8,6 +8,7 @@
 @import "./base/obsidian-vars.css";
 
 @import "./features/typography.css";
+@import "./features/responsive.css";
 
 @import "./components/headings.css";
 @import "./components/code.css";

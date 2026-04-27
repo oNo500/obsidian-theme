@@ -1,0 +1,34 @@
+/*
+  Mobile / 窄宽度适配。
+  Obsidian 在 mobile 给 body 加 is-mobile / is-tablet class，
+  也用 max-width 媒体查询双保险。
+*/
+
+body.is-mobile,
+body.is-tablet {
+  /* mobile 内容宽度跟着屏幕走，不限制 750px */
+  --file-line-width: 100%;
+  --file-margins: 16px;
+
+  /* 标题在小屏稍微缩，避免 1.8em 在 360px 宽屏幕里抢一整行 */
+  --h1-size: 1.6em;
+  --h2-size: 1.35em;
+  --h3-size: 1.2em;
+}
+
+/* mobile：UI chrome 更紧凑 */
+body.is-mobile .nav-file-title,
+body.is-mobile .nav-folder-title {
+  padding: 6px 8px;
+}
+
+body.is-mobile .workspace-tab-header {
+  padding: 4px 8px;
+}
+
+/* 窄屏（无论是 mobile 模拟还是真实窄窗口）：properties 区缩小内边距 */
+@media (max-width: 600px) {
+  .metadata-container {
+    padding: 0.4em 0.6em;
+  }
+}
