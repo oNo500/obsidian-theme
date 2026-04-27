@@ -1,0 +1,57 @@
+/*
+  特殊文件类型 + 文件夹图标：用 Lucide SVG background-image data-URI。
+
+  Electron/Chromium 在 Obsidian 这里 mask-image 不工作，改用 background-image
+  把颜色写死在 SVG stroke 里。色值用 ctp overlay1 (#7f849c) 中性灰，跟
+  激活态文字色不冲突；激活态图标走 user-accent 单独覆盖。
+
+  encoding：data:image/svg+xml;utf8 内 " 用 %22，# 用 %23，
+  其它特殊字符按需转义。
+*/
+
+/* 所有 nav-file / nav-folder 加 14px 占位保持视觉对齐网格；
+   特殊类型在下方覆盖 background-image，普通 .md 透明 */
+.nav-file-title::before,
+.nav-folder-title::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  vertical-align: -2px;
+  flex-shrink: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Canvas — Lucide layout-grid (stroke = ctp overlay1 #7f849c) */
+.nav-file-title[data-path$=".canvas"]::before {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23a6adc8%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><rect width=%227%22 height=%227%22 x=%223%22 y=%223%22 rx=%221%22/><rect width=%227%22 height=%227%22 x=%2214%22 y=%223%22 rx=%221%22/><rect width=%227%22 height=%227%22 x=%2214%22 y=%2214%22 rx=%221%22/><rect width=%227%22 height=%227%22 x=%223%22 y=%2214%22 rx=%221%22/></svg>");
+}
+
+/* PDF — Lucide file-text */
+.nav-file-title[data-path$=".pdf"]::before {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23a6adc8%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><path d=%22M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z%22/><path d=%22M14 2v4a2 2 0 0 0 2 2h4%22/><path d=%22M10 9H8%22/><path d=%22M16 13H8%22/><path d=%22M16 17H8%22/></svg>");
+}
+
+/* Excalidraw — Lucide pencil-line */
+.nav-file-title[data-path$=".excalidraw"]::before,
+.nav-file-title[data-path$=".excalidraw.md"]::before {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23a6adc8%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><path d=%22M12 20h9%22/><path d=%22M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z%22/><path d=%22m15 5 3 3%22/></svg>");
+}
+
+/* 文件夹（折叠）— Lucide folder */
+.nav-folder.is-collapsed > .nav-folder-title::before {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23a6adc8%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><path d=%22M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z%22/></svg>");
+}
+
+/* 文件夹（展开）— Lucide folder-open */
+.nav-folder:not(.is-collapsed) > .nav-folder-title::before {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23a6adc8%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><path d=%22m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2%22/></svg>");
+}
+
+/* 隐藏 Obsidian 默认的折叠箭头（被我们的 folder/folder-open 取代） */
+.nav-folder-title .tree-item-icon {
+  display: none;
+}
