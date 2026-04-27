@@ -24,11 +24,6 @@ body {
   min-width: 0;
 }
 
-.workspace-leaf-content[data-type="outline"] .tree-item-self:hover .tree-item-inner {
-  overflow: visible;
-  text-overflow: clip;
-}
-
 .workspace-leaf-content[data-type="outline"] .tree-item-self.is-active,
 .workspace-leaf-content[data-type="outline"] .tree-item-self.is-selected {
   color: var(--user-accent);
