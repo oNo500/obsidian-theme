@@ -9,6 +9,7 @@
 
 @import "./features/typography.css";
 @import "./features/responsive.css";
+@import "./features/print.css";
 
 @import "./components/headings.css";
 @import "./components/code.css";

@@ -1,0 +1,56 @@
+/*
+  打印 / 导出 PDF 样式：
+  Obsidian 导出 PDF 时把内容渲染到独立的 .print 容器，主 workspace 不参与，
+  所以不需要 display:none chrome —— 只调内容侧：强制 light 配色 + 分页友好
+*/
+
+@media print {
+  /* 强制 light 配色，避免 dark 主题打印出黑底白字 */
+  body {
+    --background-primary: #ffffff;
+    --background-secondary: #ffffff;
+    --background-modifier-border: transparent;
+    --text-normal: #1e1e2e;
+    --text-muted: #4c4f69;
+    --text-faint: #6c6f85;
+    --code-background: #f5f5f7;
+    background: #ffffff;
+    color: #1e1e2e;
+  }
+
+  /* 链接：保持下划线，外链额外显示 URL（PDF 上指向更明确） */
+  a[href] {
+    color: #1e66f5;
+    text-decoration: underline;
+  }
+
+  a.external-link[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #6c6f85;
+  }
+
+  /* 不被切割：代码块、callout、表格、blockquote、图片 */
+  pre,
+  .callout,
+  table,
+  blockquote,
+  img,
+  figure {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* 标题不孤立在页底 */
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* 代码块：浅底深字 */
+  pre,
+  code {
+    background: #f5f5f7;
+    color: #1e1e2e;
+  }
+}
