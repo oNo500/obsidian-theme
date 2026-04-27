@@ -2,6 +2,8 @@
 
 基于 Catppuccin 调色板的 Obsidian 主题。原生 CSS、`@layer` 分层、bun 单脚本构建。
 
+![quietpaper screenshot](docs/hero.png)
+
 ## 设计原则
 
 - **极简视觉**：默认不加 border，分隔依赖背景色阶或 inset shadow
