@@ -1,0 +1,95 @@
+body {
+  /* code 背景：block 用 mantle（比 base 深）；inline 用 surface0（比 base 浅，文字流里不突兀） */
+  --code-background: var(--ctp-mantle);
+  --code-normal: var(--ctp-text);
+  --code-size: 0.9em;
+  --code-radius: 6px;
+
+  /* Catppuccin 推荐的 syntax token 映射 */
+  --code-keyword: var(--ctp-mauve);
+  --code-function: var(--ctp-blue);
+  --code-string: var(--ctp-green);
+  --code-comment: var(--ctp-overlay0);
+  --code-value: var(--ctp-peach);
+  --code-punctuation: var(--ctp-subtext0);
+  --code-operator: var(--ctp-sky);
+  --code-property: var(--ctp-red);
+  --code-tag: var(--ctp-blue);
+  --code-important: var(--ctp-maroon);
+}
+
+/* 行内 code：单独的浅色背景 + 内边距，避免贴着正文挤 */
+.markdown-rendered code:not(pre code),
+.cm-inline-code {
+  background: var(--ctp-surface0);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+}
+
+/* code block：横向滚动而非折行 */
+.markdown-rendered pre {
+  background: var(--ctp-mantle);
+  padding: 0.9em 1em;
+  border-radius: var(--code-radius);
+  overflow-x: auto;
+}
+
+/* code block 内的 code 元素去掉 inline 样式（它继承自上面的 inline 规则） */
+.markdown-rendered pre code {
+  background: transparent;
+  padding: 0;
+}
+
+/*
+  阅读视图 syntax highlight：Obsidian 用 Prism.js，token 走 .token.* class。
+  Catppuccin 推荐映射在这里直接生效——比依赖 Obsidian 的 --code-* 变量更稳。
+*/
+.markdown-rendered pre code .token.keyword,
+.markdown-rendered pre code .token.builtin {
+  color: var(--ctp-mauve);
+}
+.markdown-rendered pre code .token.function,
+.markdown-rendered pre code .token.class-name {
+  color: var(--ctp-blue);
+}
+.markdown-rendered pre code .token.string,
+.markdown-rendered pre code .token.attr-value,
+.markdown-rendered pre code .token.template-string {
+  color: var(--ctp-green);
+}
+.markdown-rendered pre code .token.comment {
+  color: var(--ctp-overlay0);
+  font-style: italic;
+}
+.markdown-rendered pre code .token.number,
+.markdown-rendered pre code .token.boolean {
+  color: var(--ctp-peach);
+}
+.markdown-rendered pre code .token.punctuation,
+.markdown-rendered pre code .token.delimiter {
+  color: var(--ctp-subtext0);
+}
+.markdown-rendered pre code .token.operator {
+  color: var(--ctp-sky);
+}
+.markdown-rendered pre code .token.property,
+.markdown-rendered pre code .token.attr-name {
+  color: var(--ctp-red);
+}
+.markdown-rendered pre code .token.tag {
+  color: var(--ctp-blue);
+}
+.markdown-rendered pre code .token.regex,
+.markdown-rendered pre code .token.important {
+  color: var(--ctp-maroon);
+}
+
+/* Diff 高亮（```diff 块） */
+.markdown-rendered pre code .token.inserted {
+  color: var(--ctp-green);
+  background: oklch(from var(--ctp-green) l c h / 0.1);
+}
+.markdown-rendered pre code .token.deleted {
+  color: var(--ctp-red);
+  background: oklch(from var(--ctp-red) l c h / 0.1);
+}
