@@ -1,8 +1,7 @@
 body {
-  --table-header-background: transparent;
+  --table-header-background: var(--ctp-mantle);
   --table-header-color: var(--ctp-text);
   --table-header-weight: 600;
-  --table-row-alt-background: transparent;
   --table-row-background-hover: transparent;
   --table-cell-vertical-alignment: top;
 }
@@ -14,6 +13,22 @@ body {
   border-collapse: collapse;
   border-radius: 6px;
   overflow: hidden;
+}
+
+/* 表头：直接给 background，避免依赖 Obsidian 不消费的 --table-header-background */
+.markdown-rendered thead,
+.markdown-source-view thead,
+.markdown-rendered th,
+.markdown-source-view th {
+  background: var(--ctp-mantle);
+}
+
+/* tbody 所有行统一用浅底，奇偶都加（特异性提到 nth-child 同级） */
+.markdown-rendered tbody tr:nth-child(odd),
+.markdown-rendered tbody tr:nth-child(even),
+.markdown-source-view tbody tr:nth-child(odd),
+.markdown-source-view tbody tr:nth-child(even) {
+  background: oklch(from var(--ctp-surface0) l c h / 0.4);
 }
 
 /* 单元格水平分隔：1px ctp surface0，仅水平不竖向，安静但能区分行 */
