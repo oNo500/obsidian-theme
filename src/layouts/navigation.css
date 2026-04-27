@@ -16,12 +16,3 @@ body {
   --tab-radius: 6px;
 }
 
-/* 激活的文件加左侧色条，一眼可见 */
-.nav-file-title.is-active {
-  box-shadow: inset 2px 0 0 var(--user-accent);
-}
-
-/* 激活 tab 顶部 2px mauve 色条 + 文字加重，强化 active 状态 */
-.workspace-tab-header.is-active.mod-active {
-  box-shadow: inset 0 2px 0 var(--user-accent);
-}

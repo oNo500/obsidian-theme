@@ -27,14 +27,6 @@ body {
   --heading-line-height: 1.5;
 }
 
-/* h1 左侧加一条用户强调色细边框，让主色出现在阅读视线起点 */
-.markdown-rendered h1,
-.markdown-source-view .HyperMD-header-1,
-.markdown-source-view .cm-header-1 {
-  border-left: 3px solid var(--interactive-accent);
-  padding-left: 0.6em;
-}
-
 /* 标题间距：h1 顶部更大，强化分节感 */
 .markdown-rendered h1 {
   margin-top: 2.5em;

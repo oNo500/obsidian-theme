@@ -27,6 +27,12 @@ body {
   --line-height-normal: 1.7;
 }
 
+/* Inline title：文档名已在 tab / 面包屑 / 文件树三处显示，
+   编辑区顶部再重复是冗余且与 h1 视觉打架，整段隐藏 */
+.inline-title {
+  display: none;
+}
+
 /* WebKit scrollbar：Obsidian 用了 native ::-webkit-scrollbar
    覆盖 thumb 圆角 + hover 过渡 */
 ::-webkit-scrollbar-thumb {
