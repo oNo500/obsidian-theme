@@ -102,22 +102,35 @@ body {
 /*
   链接颜色固定为 blue —— 独立于 --user-accent。
   跟 catppuccin.com 官网做法一致：accent 是 accent，链接永远 blue。
-  这样切 accent 时链接不会跟着变弱，"是链接"的语义信号保持稳定。
+  hover 用稍亮一档的 blue（OKLCH 提亮 0.06）保持同色族。
 */
 .markdown-rendered a,
 .markdown-source-view a,
 .metadata-property-value a,
 .markdown-source-view .cm-link,
-.markdown-source-view .cm-url {
-  color: var(--ctp-blue);
-}
-
+.markdown-source-view .cm-url,
+.markdown-source-view .cm-string.cm-url,
+.markdown-source-view .cm-string.external-link,
 .markdown-rendered .internal-link,
 .markdown-source-view .internal-link,
 .metadata-property-value .internal-link,
 .markdown-source-view .cm-hmd-internal-link,
-.markdown-source-view .cm-link-alias {
+.markdown-source-view .cm-link-alias,
+.external-link {
   color: var(--ctp-blue);
+}
+
+.markdown-rendered a:hover,
+.markdown-source-view a:hover,
+.metadata-property-value a:hover,
+.markdown-rendered .internal-link:hover,
+.markdown-source-view .internal-link:hover,
+.metadata-property-value .internal-link:hover,
+.markdown-source-view .cm-hmd-internal-link:hover,
+.markdown-source-view .cm-link-alias:hover,
+.external-link:hover {
+  color: oklch(from var(--ctp-blue) calc(l + 0.06) c h);
+  text-decoration-color: oklch(from var(--ctp-blue) calc(l + 0.06) c h);
 }
 
 /* 全局焦点环：用户主色 + 微微 outline，比 Obsidian 默认更明显
