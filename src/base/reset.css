@@ -1,4 +1,16 @@
 body {
+  /*
+    Workspace 分隔线 / 边框统一 transparent：
+    各区背景色差（ribbon = mantle, sidebar = mantle, editor = base）
+    已足够区分边界，1px 实线只是噪音。
+  */
+  --divider-color: transparent;
+  --divider-color-hover: var(--user-accent);
+  --titlebar-border-color: transparent;
+  --status-bar-border-color: transparent;
+  --tab-divider-color: transparent;
+  --tab-outline-color: transparent;
+
   /* Scrollbar：用 ctp 弱化色，hover/active 加强 */
   --scrollbar-thumb-bg: var(--ctp-surface1);
   --scrollbar-active-thumb-bg: var(--ctp-overlay0);

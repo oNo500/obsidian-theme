@@ -2,7 +2,7 @@ body {
   /* 三档背景 */
   --background-primary: var(--ctp-base);
   --background-secondary: var(--ctp-mantle);
-  --background-modifier-border: var(--ctp-surface1);
+  --background-modifier-border: transparent;
 
   /* 三档文字 */
   --text-normal: var(--ctp-text);
