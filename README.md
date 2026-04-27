@@ -2,7 +2,16 @@
 
 为自己定制的 Obsidian 主题。基于 Catppuccin 配色，原生 CSS + `@layer` 分层，bun 驱动的单脚本 build pipeline。
 
-## 设计与决策
+## 设计取舍
+
+- **极简，不要噪音** —— 默认无 border，必要分隔用 surface0 / inset shadow，任何强调最多 subtle shadow
+- **单用户，不要 Style Settings** —— 切色靠改源码 + rebuild，不暴露给运行时 UI
+- **Catppuccin 配色 + 单一强调色** —— 默认 mauve，编辑 `src/tokens/accent.css` 4 行换成 13 个 ctp accent 任一
+- **原生 CSS** —— 不引 SCSS / PostCSS / tailwind；用 `@layer`、`oklch()`、`color-mix()`、CSS 变量
+- **CJK 友好** —— 中英混排间距、行高、宽度专门校准
+- **dev vault 即仓库** —— `.obsidian/themes/<name>` symlink 到仓库根，本地修改即时见效
+
+## 文档
 
 - 完整决策记录：vault 笔记 `00-inbox/obsidian-theme.md`
 - 配色架构 spec：[`docs/superpowers/specs/2026-04-27-color-scheme-design.md`](docs/superpowers/specs/2026-04-27-color-scheme-design.md)
@@ -19,8 +28,35 @@
 │   ├── tokens/
 │   │   ├── generated.css        # 自动生成：Catppuccin mocha + latte 色板
 │   │   └── accent.css           # 切色入口：改这里 4 行
-│   └── base/
-│       └── obsidian-vars.css    # 覆盖 Obsidian 官方变量（必须 unlayered）
+│   ├── base/
+│   │   ├── reset.css            # 噪音消除：去 border、统一 scrollbar / focus ring
+│   │   └── obsidian-vars.css    # 覆盖 Obsidian 官方变量（必须 unlayered）
+│   ├── features/
+│   │   ├── typography.css       # CJK 中英混排排版
+│   │   ├── responsive.css       # mobile / tablet 适配
+│   │   └── print.css            # @media print 导出 PDF 友好
+│   ├── components/
+│   │   ├── headings.css         # 标题 1.6/1.35/1.2 em 三级
+│   │   ├── code.css             # 行内 + 代码块
+│   │   ├── callouts.css         # 12 种类型 + Lucide 图标映射
+│   │   ├── tags.css             # 胶囊 tag
+│   │   ├── blockquote.css       # 左侧 accent 引导线
+│   │   ├── table.css            # 紧凑表格
+│   │   ├── checkbox.css         # 自定义 checkbox
+│   │   ├── lists.css            # ul / ol 间距与缩进
+│   │   ├── properties.css       # frontmatter / properties UI
+│   │   ├── embed.css            # 内嵌笔记块
+│   │   ├── popovers.css         # 浮层 / modal 用 shadow 不用 border
+│   │   ├── prompt.css           # 命令面板 / quick switcher
+│   │   └── images.css           # 图片圆角 + subtle shadow
+│   └── layouts/
+│       ├── navigation.css       # 文件树
+│       ├── file-icons.css       # Lucide SVG 图标（.md / .canvas / .pdf 等）
+│       ├── breadcrumb.css       # 面包屑
+│       ├── sidebar.css          # 左右侧栏
+│       ├── status-bar.css       # 底部状态栏
+│       ├── resize-handle.css    # 拖拽柄（hover 才显形）
+│       └── search.css           # 搜索面板（命中词 accent 高亮）
 ├── test-notes/                  # 仓库本身是 dev vault，测试笔记放这里
 └── .obsidian/themes/obsidian-theme  # symlink → 仓库根（让 Obsidian 把仓库当主题）
 ```
@@ -172,6 +208,19 @@ obsidian dev:dom selector="..."          # DOM inspect
 `--interactive-accent` 等强调色不能直接写值覆盖——Obsidian 通过 `hsl(var(--accent-h), var(--accent-s), var(--accent-l))` 派生衍生强调色（hover / active / disabled）。覆盖派生入口（`--accent-h/s/l`）才能让整套衍生色一起生效。
 
 CSS 变量要写在 `body` 选择器上而非 `:root`——Obsidian 的 `theme-dark` / `theme-light` class 在 `<body>` 上，写 `:root` 可能拿不到从 `.theme-dark` 继承的子变量。
+
+## 测试笔记
+
+`test-notes/` 是回归测试床——每改一个组件，对应笔记里该有相应的语法触发样式：
+
+- `01-typography-cjk.md` — 中英混排、标点、行内格式
+- `02-code-blocks.md` — 行内 code 与多语言代码块
+- `03-callouts.md` — 12 种 callout 类型全覆盖（验图标映射）
+- `04-links-and-tags.md` — wikilink / 外链 / unresolved / hashtag
+- `05-properties.md` — frontmatter 的各种字段类型
+- `06-images.md` — 内嵌图、外链图、并排图、宽度调整
+
+新增样式时把触发语法补到对应笔记，下次改动时直接打开对照看回归。
 
 ## 依赖
 
