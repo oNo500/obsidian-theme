@@ -35,17 +35,42 @@ body {
 }
 
 /*
-  外链 vs wikilink 形态区分（点击行为不同，必须有视觉信号）：
-  - 删 Obsidian 默认 ↗ SVG 背景贴图
-  - 颜色统一走 --interactive-accent
-  - 仅靠下划线形态区分：外链 dotted（虚线），wikilink 默认 solid（实线）
+  链接视觉层次：三种状态各自独立信号
+  - wikilink（已存在）：纯文字色，无下划线——日常占多数，最安静
+  - wikilink（不存在/is-unresolved）：弱化色 + 虚线下划线，broken 状态明显
+  - 外链：实线下划线，跟 wikilink 行为差异（开浏览器）形成视觉差异
 */
+
+/* wikilink 已存在：去掉默认下划线 */
+.internal-link {
+  text-decoration: none;
+}
+.internal-link:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* wikilink 不存在：弱化色 + 虚线，broken 状态强信号 */
+.internal-link.is-unresolved {
+  color: var(--ctp-overlay1);
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: var(--ctp-overlay0);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.internal-link.is-unresolved:hover {
+  color: var(--ctp-subtext0);
+}
+
+/* 外链：删 Obsidian 默认 ↗ SVG，实线下划线作为唯一信号 */
 .external-link {
   background-image: none;
   padding-right: 0;
-  text-decoration-style: dashed;
+  text-decoration: underline;
   text-decoration-color: var(--user-accent);
-  text-decoration-thickness: 1.5px;
+  text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 
