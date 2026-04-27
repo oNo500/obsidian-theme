@@ -46,10 +46,11 @@ CSS 源码按职责分布在 `src/<base|content|ui>/`，文件名即组件名（
 
 更换强调色：编辑 `src/tokens/accent.css` 中 4 处 `mauve`，替换为 `rosewater / flamingo / pink / red / maroon / peach / yellow / green / teal / sky / sapphire / blue / lavender` 中任一。
 
-## 安装到其它 vault
+## 使用主题
 
-将 `theme/theme.css` 与 `theme/manifest.json` 复制到目标 vault 的 `.obsidian/themes/quietpaper/` 目录下，
-然后在 Obsidian Settings → Appearance → Themes 中启用。
+1. 在目标 vault 下创建目录 `.obsidian/themes/quietpaper/`
+2. 将 `theme/theme.css` 与 `theme/manifest.json` 复制到该目录
+3. 打开 Obsidian Settings → Appearance → Themes，选择 **quietpaper** 启用
 
 ## 样本笔记
 
